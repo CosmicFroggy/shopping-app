@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shopping.backend.Entity.Listing;
+import com.shopping.backend.entity.Listing;
 import com.shopping.backend.repository.ListingRepository;
 
 @Service

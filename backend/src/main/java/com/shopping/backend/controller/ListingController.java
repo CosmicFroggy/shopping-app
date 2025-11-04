@@ -18,7 +18,7 @@ public class ListingController {
     @Autowired
     private ListingService listingService;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<Listing>> getAll() {
         return ResponseEntity.ok(listingService.getAll());
     }

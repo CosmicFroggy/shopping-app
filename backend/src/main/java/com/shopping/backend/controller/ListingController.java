@@ -14,6 +14,7 @@ import com.shopping.backend.entity.Listing;
 import com.shopping.backend.service.ListingService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 
 @RestController
@@ -37,6 +38,11 @@ public class ListingController {
     @PostMapping
     public ResponseEntity<Listing> create(@RequestBody Listing listing) {
         return ResponseEntity.ok(listingService.create(listing));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return ResponseEntity.noContent().build();
     }
     
     

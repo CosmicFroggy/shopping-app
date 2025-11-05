@@ -3,6 +3,9 @@ import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
 
+import "./components/ListingForm"
+import ListingForm from './components/ListingForm';
+
 function App() {
 	const [listings, setListings] = useState([]);
 
@@ -27,6 +30,27 @@ function App() {
 		getListings();
 	}, []);
 
+	const createListing = async (listing) => {
+		try {
+			const res = await fetch("http://localhost:8080/listing", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(listing)
+			});
+
+			if (!res.ok) {
+				throw new Error(`Could not create new listing. Request response status: ${res.status}`);
+			}
+
+			const result = await res.json();
+			setListings([...listings, result]);
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+ 
 	return (
 		<div>
 			<ol>
@@ -36,6 +60,7 @@ function App() {
 					))
 				}
 			</ol>
+			<ListingForm createListing={createListing}></ListingForm>
 		</div>
 	);
 	}

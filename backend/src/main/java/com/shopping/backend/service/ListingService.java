@@ -23,4 +23,9 @@ public class ListingService {
                             .orElseThrow(() -> new ResourceNotFoundException("Listing not found with id: " + id));
         return listing;
     }
+
+    public Listing create(Listing listing) {
+        System.out.println(listing);
+        return listingRepository.save(listing);
+    }
 }

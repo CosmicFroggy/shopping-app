@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shopping.backend.entity.Listing;
 import com.shopping.backend.service.ListingService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/listing")
@@ -30,5 +33,11 @@ public class ListingController {
     public ResponseEntity<Listing> getById(@PathVariable Long id) {
         return ResponseEntity.ok(listingService.getById(id));
     }
+
+    @PostMapping
+    public ResponseEntity<Listing> create(@RequestBody Listing listing) {
+        return ResponseEntity.ok(listingService.create(listing));
+    }
+    
     
 }

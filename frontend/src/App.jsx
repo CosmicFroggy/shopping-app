@@ -45,7 +45,7 @@ function App() {
 			}
 
 			const result = await res.json();
-			console.log(result);
+			setListings([...listings, result]);
 		} catch (error) {
 			console.error(error.message);
 		}

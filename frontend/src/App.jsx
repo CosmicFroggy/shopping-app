@@ -17,7 +17,7 @@ function App() {
 					throw new Error(`Listings GET request response status: ${res.status}`);
 				}
 
-				const result = res.json();
+				const result = await res.json();
 				console.log(result);
 			} catch (error) {
 				console.error(error.message);

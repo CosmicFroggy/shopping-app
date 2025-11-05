@@ -42,6 +42,7 @@ public class ListingController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
+        listingService.delete(id);
         return ResponseEntity.noContent().build();
     }
     

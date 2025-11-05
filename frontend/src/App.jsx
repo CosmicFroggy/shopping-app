@@ -18,19 +18,24 @@ function App() {
 				}
 
 				const result = await res.json();
-				console.log(result);
+				setListings(result);
 			} catch (error) {
 				console.error(error.message);
 			}
 		};
 
 		getListings();
-
 	}, []);
 
 	return (
 		<div>
-
+			<ol>
+				{
+					listings.map((listing) => (
+						<li key={listing.id}>{listing.name}</li>
+					))
+				}
+			</ol>
 		</div>
 	);
 	}

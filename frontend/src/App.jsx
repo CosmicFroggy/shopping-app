@@ -30,8 +30,25 @@ function App() {
 		getListings();
 	}, []);
 
-	const createListing = () => {
+	const createListing = async (listing) => {
+		try {
+			const res = await fetch("http://localhost:8080/listing", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(listing)
+			});
 
+			if (!res.ok) {
+				throw new Error(`Could not create new listing. Request response status: ${res.status}`);
+			}
+
+			const result = await res.json();
+			console.log(result);
+		} catch (error) {
+			console.error(error.message);
+		}
 	};
  
 	return (

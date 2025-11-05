@@ -25,6 +25,7 @@ public class ListingService {
     }
 
     public Listing create(Listing listing) {
+        System.out.println(listing);
         return listingRepository.save(listing);
     }
 }

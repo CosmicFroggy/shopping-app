@@ -50,13 +50,36 @@ function App() {
 			console.error(error.message);
 		}
 	};
+
+	const deleteListingById = async (id) => {
+		try {
+			const res = await fetch(`http://localhost:8080/listing/${id}`, {
+				method: "DELETE"
+			});
+
+			if (!res.ok) {
+				throw new Error(`Could not delete listing ${id}. Request response status: ${res.status}`);
+			}
+
+			setListings(listings.filter((l) => l.id !== id));
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+
+
  
 	return (
 		<div>
 			<ol>
 				{
 					listings.map((listing) => (
-						<li key={listing.id}>{listing.name}</li>
+						<li key={listing.id}>
+							<h3>{listing.name}</h3>
+							<p>{listing.description}</p>
+							<p>{listing.price}</p>
+							<button onClick={() => deleteListingById(listing.id)}>Delete Listing</button>
+						</li>
 					))
 				}
 			</ol>

@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+	const [listings, setListings] = useState([]);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+	useEffect(() => {
+		const getListings = async () => {
+			try {
+				const res = await fetch("http://localhost:8080/listing", {
+					method: "GET"
+				});
 
-export default App
+				if (!res.ok) {
+					throw new Error(`Listings GET request response status: ${res.status}`);
+				}
+
+				const result = res.json();
+				console.log(result);
+			} catch (error) {
+				console.error(error.message);
+			}
+		};
+
+		getListings();
+
+	}, []);
+
+	return (
+		<div>
+
+		</div>
+	);
+	}
+
+export default App;

@@ -56,7 +56,12 @@ function App() {
 			<ol>
 				{
 					listings.map((listing) => (
-						<li key={listing.id}>{listing.name}</li>
+						<li key={listing.id}>
+							<h3>{listing.name}</h3>
+							<p>{listing.description}</p>
+							<p>{listing.price}</p>
+							<button>Delete Listing</button>
+						</li>
 					))
 				}
 			</ol>

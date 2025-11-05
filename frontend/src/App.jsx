@@ -3,6 +3,9 @@ import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
 
+import "./components/ListingForm"
+import ListingForm from './components/ListingForm';
+
 function App() {
 	const [listings, setListings] = useState([]);
 
@@ -27,6 +30,10 @@ function App() {
 		getListings();
 	}, []);
 
+	const createListing = () => {
+
+	};
+ 
 	return (
 		<div>
 			<ol>
@@ -36,6 +43,7 @@ function App() {
 					))
 				}
 			</ol>
+			<ListingForm createListing={createListing}></ListingForm>
 		</div>
 	);
 	}

@@ -20,7 +20,7 @@ public class ListingService {
 
     public Listing getById(Long id) {
         Listing listing = listingRepository.findById(id)
-                            .orElseThrow(() -> new ResourceNotFoundException("Listing not found with id: " + id));
+            .orElseThrow(() -> new ResourceNotFoundException("Listing not found with id: " + id));
         return listing;
     }
 

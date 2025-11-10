@@ -26,7 +26,7 @@ public class User implements UserDetails {
     private Long id;
 
     private String username;
-    private String password;
+    private String password;  // is the password already hashed?
     private String role;
 
     @Override

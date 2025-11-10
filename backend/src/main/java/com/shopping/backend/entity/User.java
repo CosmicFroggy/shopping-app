@@ -1,8 +1,10 @@
 package com.shopping.backend.entity;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Entity;
@@ -26,11 +28,10 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private String role;
-    
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // TODO Auto-generated method stub
-        return null;
+        return List.of(new SimpleGrantedAuthority(role));
     }
 
 }

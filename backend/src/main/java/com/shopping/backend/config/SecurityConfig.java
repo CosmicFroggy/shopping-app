@@ -16,12 +16,35 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.shopping.backend.entity.User;
 import com.shopping.backend.repository.UserRepository;
-import com.shopping.backend.service.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider(userDetailsService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+        return new ProviderManager(daoAuthenticationProvider);
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+        .csrf(csrf -> csrf.disable()) // not needed in rest api
+        .authorizeHttpRequests(auth -> 
+        auth
+        .requestMatchers("/listing/**").permitAll()
+        .anyRequest().authenticated())
+        .httpBasic(Customizer.withDefaults());
+        return http.build();
+    }  
+    
     // temporary startup initialisation to create an admin user
     @Bean
     public CommandLineRunner createAdminUser(UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -38,32 +61,4 @@ public class SecurityConfig {
         };
     }
     
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.disable()) // not needed in rest api
-            .authorizeHttpRequests(auth -> 
-                auth
-                    .requestMatchers("/listing/**").permitAll()
-                    .anyRequest().authenticated())
-            .httpBasic(Customizer.withDefaults());
-        return http.build();
-    }  
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new CustomUserDetailsService();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider(userDetailsService);
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-        return new ProviderManager(daoAuthenticationProvider);
-    }
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.shopping.backend.repository.UserRepository;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository; 

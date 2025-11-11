@@ -22,6 +22,7 @@ import com.shopping.backend.service.CustomUserDetailsService;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    // temporary startup initialisation to create an admin user
     @Bean
     public CommandLineRunner createAdminUser(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {

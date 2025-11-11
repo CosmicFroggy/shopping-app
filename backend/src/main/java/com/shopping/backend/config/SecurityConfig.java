@@ -39,9 +39,10 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // not needed in rest api
             .authorizeHttpRequests(auth -> 
                 auth
-                    .requestMatchers("/listing/**", "/auth").permitAll()
+                    .requestMatchers("/listing/**", "/auth/**", "/h2/**").permitAll()
                     .anyRequest().authenticated())
-            .httpBasic(Customizer.withDefaults());
+            .httpBasic(Customizer.withDefaults())
+            .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin())); // h2 console breaks because spring security blocks iframes
         return http.build();
     }  
     

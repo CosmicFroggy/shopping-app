@@ -39,8 +39,8 @@ public class AuthController {
     @PostMapping()
     public String authenticate(@RequestBody AuthRequest authRequest) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.username, authRequest.password));
-            return jwtService.generateToken(authRequest.username);
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+            return jwtService.generateToken(authRequest.getUsername());
         } catch (Exception err) {
             throw err;
         }

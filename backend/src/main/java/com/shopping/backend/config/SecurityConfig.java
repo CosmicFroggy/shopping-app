@@ -36,12 +36,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-        .csrf(csrf -> csrf.disable()) // not needed in rest api
-        .authorizeHttpRequests(auth -> 
-        auth
-        .requestMatchers("/listing/**").permitAll()
-        .anyRequest().authenticated())
-        .httpBasic(Customizer.withDefaults());
+            .csrf(csrf -> csrf.disable()) // not needed in rest api
+            .authorizeHttpRequests(auth -> 
+                auth
+                    .requestMatchers("/listing/**", "/auth").permitAll()
+                    .anyRequest().authenticated())
+            .httpBasic(Customizer.withDefaults());
         return http.build();
     }  
     

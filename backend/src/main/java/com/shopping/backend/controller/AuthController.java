@@ -3,6 +3,7 @@ package com.shopping.backend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,9 +28,10 @@ public class AuthController {
     @PostMapping()
     public String authenticate(@RequestBody AuthRequestDTO authRequest) {
         try {
+            // this will throw an exception if authentication fails
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
             return jwtService.generateToken(authRequest.getUsername());
-        } catch (Exception err) {
+        } catch (AuthenticationException err) {
             throw err;
         }
     }

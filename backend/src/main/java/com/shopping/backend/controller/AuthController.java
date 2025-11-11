@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shopping.backend.service.JWTService;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,9 @@ public class AuthController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JWTService jwtService;
     
     @Data
     @NoArgsConstructor
@@ -35,8 +40,7 @@ public class AuthController {
     public String authenticate(@RequestBody AuthRequest authRequest) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.username, authRequest.password));
-            //TODO: create jwt
-            return "jwt token";
+            return jwtService.generateToken(authRequest.username);
         } catch (Exception err) {
             throw err;
         }

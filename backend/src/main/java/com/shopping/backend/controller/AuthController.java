@@ -4,17 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shopping.backend.dto.AuthRequestDTO;
 import com.shopping.backend.service.JWTService;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -28,16 +24,8 @@ public class AuthController {
     @Autowired
     private JWTService jwtService;
     
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    private class AuthRequest {
-        private String username;
-        private String password;
-    }
-    
     @PostMapping()
-    public String authenticate(@RequestBody AuthRequest authRequest) {
+    public String authenticate(@RequestBody AuthRequestDTO authRequest) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
             return jwtService.generateToken(authRequest.getUsername());

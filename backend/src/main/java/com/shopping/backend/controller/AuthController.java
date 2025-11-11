@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shopping.backend.dto.AuthRequestDTO;
-import com.shopping.backend.service.JWTService;
+import com.shopping.backend.util.JWTUtil;
 
 
 @RestController
@@ -23,14 +23,14 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private JWTService jwtService;
+    private JWTUtil jwtUtil;
     
     @PostMapping()  // TODO: wrap this in a responseentity?
     public String authenticate(@RequestBody AuthRequestDTO authRequest) {
         try {
             // this will throw an exception if authentication fails
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-            return jwtService.generateToken(authRequest.getUsername());
+            return jwtUtil.generateToken(authRequest.getUsername());
         } catch (AuthenticationException err) {
             throw err;
         }

@@ -25,7 +25,7 @@ public class AuthController {
     @Autowired
     private JWTService jwtService;
     
-    @PostMapping()
+    @PostMapping()  // TODO: wrap this in a responseentity?
     public String authenticate(@RequestBody AuthRequestDTO authRequest) {
         try {
             // this will throw an exception if authentication fails

@@ -1,11 +1,13 @@
 import { useState } from "react";
 
+type ListingInfo = {
+    name: string;
+    description: string;
+    price: number;
+};
+
 type props = {
-    createListing: (listing: {
-        name: string;
-        description: string;
-        price: number;
-    }) => void;
+    createListing: (listingInfo: ListingInfo) => void;
 };
 
 const ListingForm = ({ createListing }: props) => {
@@ -15,11 +17,12 @@ const ListingForm = ({ createListing }: props) => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        createListing({
+        const listingInfo: ListingInfo = {
             name: name,
             description: description,
             price: parseFloat(price),
-        });
+        };
+        createListing(listingInfo);
         setName("");
         setDescription("");
         setPrice("");

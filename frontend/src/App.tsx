@@ -5,7 +5,7 @@ import type { ListingInfo } from "./types/ListingInfo";
 import "./components/ListingForm";
 import ListingForm from "./components/ListingForm";
 
-function App() {
+const App = () => {
     const [listings, setListings] = useState<Listing[]>([]);
 
     useEffect(() => {
@@ -88,7 +88,7 @@ function App() {
     return (
         <div>
             <ol>
-                {listings.map((listing) => (
+                {listings.map((listing: Listing) => (
                     <li key={listing.id}>
                         <h3>{listing.name}</h3>
                         <p>{listing.description}</p>
@@ -102,6 +102,6 @@ function App() {
             <ListingForm createListing={createListing}></ListingForm>
         </div>
     );
-}
+};
 
 export default App;

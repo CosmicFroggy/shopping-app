@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-
+import type { Listing } from "./types/Listing";
+import type { ListingInfo } from "./types/ListingInfo";
 import "./components/ListingForm";
 import ListingForm from "./components/ListingForm";
 
 function App() {
-    const [listings, setListings] = useState([]);
+    const [listings, setListings] = useState<Listing[]>([]);
 
     useEffect(() => {
-        const getListings = async () => {
+        const getListings = async (): Promise<void> => {
             try {
-                const res = await fetch("http://localhost:8080/listing", {
-                    method: "GET",
-                });
+                // TODO: learn axios
+                const res: Response = await fetch(
+                    "http://localhost:8080/listing",
+                    {
+                        method: "GET",
+                    },
+                );
 
                 if (!res.ok) {
                     throw new Error(
@@ -20,24 +25,26 @@ function App() {
                     );
                 }
 
-                const result = await res.json();
-                setListings(result);
+                const newListings: Listing[] = await res.json();
+                setListings(newListings);
             } catch (error) {
-                console.error(error.message);
+                if (error instanceof Error) {
+                    console.error(error.message);
+                }
             }
         };
 
         getListings();
     }, []);
 
-    const createListing = async (listing) => {
+    const createListing = async (listingInfo: ListingInfo): Promise<void> => {
         try {
-            const res = await fetch("http://localhost:8080/listing", {
+            const res: Response = await fetch("http://localhost:8080/listing", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(listing),
+                body: JSON.stringify(listingInfo),
             });
 
             if (!res.ok) {
@@ -46,18 +53,23 @@ function App() {
                 );
             }
 
-            const result = await res.json();
-            setListings([...listings, result]);
+            const listing: Listing = await res.json();
+            setListings([...listings, listing]);
         } catch (error) {
-            console.error(error.message);
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
         }
     };
 
-    const deleteListingById = async (id) => {
+    const deleteListingById = async (id: number): Promise<void> => {
         try {
-            const res = await fetch(`http://localhost:8080/listing/${id}`, {
-                method: "DELETE",
-            });
+            const res: Response = await fetch(
+                `http://localhost:8080/listing/${id}`,
+                {
+                    method: "DELETE",
+                },
+            );
 
             if (!res.ok) {
                 throw new Error(
@@ -67,7 +79,9 @@ function App() {
 
             setListings(listings.filter((l) => l.id !== id));
         } catch (error) {
-            console.error(error.message);
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
         }
     };
 

@@ -1,10 +1,5 @@
 import { useState } from "react";
-
-type ListingInfo = {
-    name: string;
-    description: string;
-    price: number;
-};
+import type { ListingInfo } from "../types/ListingInfo";
 
 type props = {
     createListing: (listingInfo: ListingInfo) => void;

@@ -47,13 +47,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)  // add our custom jwt filter that will authenticate requests with a jwt token
+            .csrf(csrf -> csrf.disable()) // not needed in rest api
             .authorizeHttpRequests(auth -> 
                 auth
-                    .requestMatchers("/listing/**", "/auth/**", "/h2/**").permitAll()
+                    .requestMatchers("/auth/**" ).permitAll()
                     .anyRequest().authenticated())
             .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin())) // h2 console breaks because spring security blocks iframes
-            .csrf(csrf -> csrf.disable()); // not needed in rest api
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);  // add our custom jwt filter that will authenticate requests with a jwt token
         return http.build();
     }  
     

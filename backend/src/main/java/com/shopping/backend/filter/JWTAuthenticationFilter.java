@@ -44,20 +44,15 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter{
             username = jwtUtil.extractUsername(token);
         }
 
-        // check that this user exists in the database
+        // check that this user exists in the database and update security context if so
         UserDetails userDetails = null; 
         try {
             userDetails = userService.loadUserByUsername(username);
-        } catch (UsernameNotFoundException e) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.setContentType("application/json");  // set response to expect json body
-            response.getWriter().write("{\"error\": \"" + e.getMessage() + "\"}");  // deliver error message in json body
-            return;
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authToken);
+        } catch (UsernameNotFoundException error) {
+            System.out.println("ERROR: " + error.getMessage()); // user does not exist in database
         }
-
-        // update the spring security context if the token is valid and the user exists
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authToken);
 
         // call the next filter in the chain
         filterChain.doFilter(request, response);

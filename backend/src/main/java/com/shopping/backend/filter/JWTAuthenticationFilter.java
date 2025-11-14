@@ -31,27 +31,21 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter{
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        // extract JWT token from authorisation header of request
         String authHeader = request.getHeader("Authorization");
-
-        // extract username from the JWT, also verify the JWT in the process
-        // exception will be thrown if the token signature is invalid
-        // TODO: handle these exceptions somewhere
-        String token = null;
-        String username = null;
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            token = authHeader.substring(7);
-            username = jwtUtil.extractUsername(token);
-        }
+            // extract username from JWT, also verify the JWT in the process
+            String token = authHeader.substring(7);
+            String username = jwtUtil.extractUsername(token); // exception will be thrown if the token signature is invalid
+                                                       // TODO: handle these exceptions somewhere
 
-        // check that this user exists in the database and update security context if so
-        UserDetails userDetails = null; 
-        try {
-            userDetails = userService.loadUserByUsername(username);
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authToken);
-        } catch (UsernameNotFoundException error) {
-            System.out.println("ERROR: " + error.getMessage()); // user does not exist in database
+            // check that this user exists in the database and update security context if so
+            try {
+                UserDetails userDetails = userService.loadUserByUsername(username); // will throw error if no user found in db
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            } catch (UsernameNotFoundException error) {
+                System.out.println("ERROR: " + error.getMessage()); // user does not exist in database
+            }
         }
 
         // call the next filter in the chain

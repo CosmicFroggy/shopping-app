@@ -44,6 +44,8 @@ public class SecurityConfig {
         return new ProviderManager(authenticationProvider);
     }
 
+    // TODO: currently, requests to /listing without tokens return 403, should this not be 401?
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http

@@ -31,10 +31,16 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter{
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
+        // extract token from header
         String authHeader = request.getHeader("Authorization");
+        String token = null;
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            // extract username from JWT, also verify the JWT in the process
-            String token = authHeader.substring(7);
+            token = authHeader.substring(7);
+        }
+        
+        // extract username from token, also verify the token in the process
+        if (token != null) {
             String username = jwtUtil.extractUsername(token); // exception will be thrown if the token signature is invalid
                                                        // TODO: handle these exceptions somewhere
 

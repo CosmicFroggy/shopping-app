@@ -10,14 +10,20 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-// @Component
-// public class JWTAuthenticationFilter extends OncePerRequestFilter{
+@Component
+public class JWTAuthenticationFilter extends OncePerRequestFilter{
 
-//     @Override
-//     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-//             throws ServletException, IOException {
-//         // TODO Auto-generated method stub
-        
-//     }
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        // extract JWT token from authorisation header of request
+        String authHeader = request.getHeader("Authorization");
+        String token = null;
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            token = authHeader.substring(7);
+        }
+
+        // validate the token
+    }
     
-// }
+}

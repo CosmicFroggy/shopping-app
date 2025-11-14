@@ -53,6 +53,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> 
                 auth
                     .requestMatchers("/auth/**" ).permitAll()
+                    .requestMatchers("/h2").hasRole("ADMIN")
                     .anyRequest().authenticated())
             .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin())) // h2 console breaks because spring security blocks iframes
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);  // add our custom jwt filter that will authenticate requests with a jwt token

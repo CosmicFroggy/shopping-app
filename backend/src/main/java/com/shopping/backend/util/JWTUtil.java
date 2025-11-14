@@ -6,8 +6,10 @@ import javax.crypto.SecretKey;
 
 import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+
 
 @Component
 public class JWTUtil {
@@ -26,6 +28,9 @@ public class JWTUtil {
     }
 
     public String extractUsername(String token) {
-        
+        JwtParser parser = Jwts.parserBuilder()
+            .setSigningKey(key)
+            .build()
+            .parseClaimsJwt(token)
     }
 }

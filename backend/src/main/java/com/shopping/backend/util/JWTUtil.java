@@ -4,9 +4,12 @@ import java.util.Date;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.JwtParser;
+import com.shopping.backend.service.UserService;
+
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
@@ -27,10 +30,32 @@ public class JWTUtil {
             .compact();
     }
 
-    public String extractUsername(String token) {
-        JwtParser parser = Jwts.parserBuilder()
-            .setSigningKey(key)
+    private Claims extractClaims(String token) {
+        return Jwts.parser()
+            .verifyWith(key)
             .build()
-            .parseClaimsJwt(token)
+            .parseSignedClaims(token) // does this throw error if jwt is improperly signed?
+            .getPayload();            // TODO: handle this error?
     }
+    
+    public String extractUsername(String token) {
+        Claims body = extractClaims(token);
+        return body.getSubject();
+    }
+
+    public Date extractExpiration(String token) {
+        Claims body = extractClaims(token);
+        return body.getExpiration();
+    }
+
+    public Date extractIssuedAt(String token) {
+        Claims body = extractClaims(token);
+        return body.getIssuedAt();
+    }
+
+    public Boolean isTokenExpired(String token) {
+        return extractExpiration(token).before(new Date());
+    }
+
+    // TODO: add a validate token/user method if we later at user expiry or revocation
 }

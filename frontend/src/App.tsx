@@ -4,9 +4,12 @@ import type { Listing } from "./types/Listing";
 import type { ListingInfo } from "./types/ListingInfo";
 import "./components/ListingForm";
 import ListingForm from "./components/ListingForm";
+import { AuthProvider } from "./auth/AuthProvider";
+import { useAuth } from "./auth/useAuth";
 
 const App = () => {
     const [listings, setListings] = useState<Listing[]>([]);
+    const { token } = useAuth();
 
     useEffect(() => {
         const getListings = async (): Promise<void> => {
@@ -16,6 +19,9 @@ const App = () => {
                     "http://localhost:8080/listing",
                     {
                         method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
                     },
                 );
 
@@ -43,6 +49,7 @@ const App = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(listingInfo),
             });
@@ -68,6 +75,9 @@ const App = () => {
                 `http://localhost:8080/listing/${id}`,
                 {
                     method: "DELETE",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                 },
             );
 
@@ -86,7 +96,7 @@ const App = () => {
     };
 
     return (
-        <div>
+        <AuthProvider>
             <ol>
                 {listings.map((listing: Listing) => (
                     <li key={listing.id}>
@@ -100,7 +110,7 @@ const App = () => {
                 ))}
             </ol>
             <ListingForm createListing={createListing}></ListingForm>
-        </div>
+        </AuthProvider>
     );
 };
 

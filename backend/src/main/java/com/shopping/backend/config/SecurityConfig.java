@@ -15,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.shopping.backend.entity.User;
 import com.shopping.backend.filter.JWTAuthenticationFilter;
@@ -50,15 +53,29 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable()) // not needed in rest api
-            .authorizeHttpRequests(auth -> 
-                auth
-                    .requestMatchers("/auth/**" ).permitAll()
-                    .requestMatchers("/h2").hasRole("ADMIN")
-                    .anyRequest().authenticated())
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/auth/**" ).permitAll()
+                .requestMatchers("/h2").hasRole("ADMIN")
+                .anyRequest().authenticated())
             .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin())) // h2 console breaks because spring security blocks iframes
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);  // add our custom jwt filter that will authenticate requests with a jwt token
         return http.build();
     }  
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.addAllowedOrigin("http://localhost:5173");
+        config.addAllowedMethod("*");
+        config.addAllowedHeader("*");
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+
+    }
     
     // temporary startup initialisation to create an admin user
     @Bean

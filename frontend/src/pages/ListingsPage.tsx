@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 import type { Listing } from "../types/Listing";
 import type { ListingInfo } from "../types/ListingInfo";
 import ListingForm from "../components/ListingForm";

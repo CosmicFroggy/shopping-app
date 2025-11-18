@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.shopping.backend.entity.Role;
 import com.shopping.backend.entity.User;
 import com.shopping.backend.filter.JWTAuthenticationFilter;
 import com.shopping.backend.repository.UserRepository;
@@ -85,7 +86,7 @@ public class SecurityConfig {
                 User admin = new User();
                 admin.setUsername("admin");
                 admin.setPassword(passwordEncoder.encode("admin1234"));
-                admin.setRole("ROLE_ADMIN");
+                admin.setRole(Role.ADMIN);
 
                 userRepository.save(admin);
                 System.out.println("Default admin user created!");

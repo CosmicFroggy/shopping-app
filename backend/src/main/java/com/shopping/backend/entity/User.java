@@ -34,7 +34,7 @@ public class User implements UserDetails {
     private String username;
     private String password;  // this is the hashed password  // TODO: salt the hashes
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)  // store in db as string rather than number
     private Role role;
 
     @Override

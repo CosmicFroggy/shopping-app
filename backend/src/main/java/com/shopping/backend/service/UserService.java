@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.shopping.backend.dto.RegisterRequestDto;
 import com.shopping.backend.entity.User;
 import com.shopping.backend.repository.UserRepository;
-import com.shopping.backend.util.JWTUtil;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -21,16 +20,13 @@ public class UserService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private JWTUtil jwtUtil;
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
             .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 
-    public String registerUser(RegisterRequestDto registerRequest) {
+    public User registerUser(RegisterRequestDto registerRequest) {
         // check user doesn't already exist
         if (userRepository.findByUsername(registerRequest.getUsername()).isPresent()) {
             throw new RuntimeException("User already exists!!"); // TODO: create a custom exception here
@@ -42,12 +38,7 @@ public class UserService implements UserDetailsService {
         user.setRole(registerRequest.getRole());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
 
-        // save new user 
-        userRepository.save(user);
-
-        // TODO: should this functionality be handled separately?
-        // generate jwt for new user to use and return
-        return jwtUtil.generateToken(registerRequest.getUsername());
+        // save and return new user 
+        return userRepository.save(user);
     }
-    
 }

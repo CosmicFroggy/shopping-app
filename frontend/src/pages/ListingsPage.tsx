@@ -6,7 +6,7 @@ import { useAuth } from "../auth/useAuth";
 
 const ListingsPage = () => {
     const [listings, setListings] = useState<Listing[]>([]);
-    const { token } = useAuth();
+    const { token, setToken } = useAuth();
 
     useEffect(() => {
         const getListings = async (): Promise<void> => {
@@ -119,6 +119,7 @@ const ListingsPage = () => {
                 ))}
             </ol>
             <ListingForm createListing={createListing}></ListingForm>
+            <button onClick={() => setToken(null)}>Log out</button>
         </div>
     );
 };

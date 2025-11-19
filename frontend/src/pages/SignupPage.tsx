@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../auth/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import type { UserInfo } from "../types/UserInfo.";
 
 const SignupPage = () => {
@@ -101,6 +101,9 @@ const SignupPage = () => {
                 />
                 <button type="submit">Sign Up</button>
             </form>
+            <p>
+                Already have an account? <Link to="/login">Log in!</Link>
+            </p>
         </div>
     );
 };

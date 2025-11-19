@@ -32,7 +32,8 @@ const SignupPage = () => {
                 );
             }
 
-            setToken(await res.text());
+            const data = await res.json(); // TODO: define a type for the response body?
+            setToken(data.token);
         } catch (error) {
             if (error instanceof Error) {
                 console.error(error.message);

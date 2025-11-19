@@ -17,3 +17,8 @@ spring:
     sql:
         init:
             mode: always
+    
+    security:
+        user:
+            name: admin
+            password: admin123

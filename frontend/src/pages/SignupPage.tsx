@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../auth/useAuth";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import type { UserInfo } from "../types/UserInfo.";
 
-const LoginPage = () => {
+const SignupPage = () => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const { token, setToken } = useAuth();
@@ -40,17 +40,45 @@ const LoginPage = () => {
         }
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    const signup = async (userInfo: UserInfo): Promise<void> => {
+        try {
+            const res: Response = await fetch(
+                "http://localhost:8080/user/register",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(userInfo),
+                },
+            );
+
+            if (!res.ok) {
+                throw new Error(
+                    `Could not create user. Request response status: ${res.status}`,
+                );
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
+        }
+    };
+
+    const handleSubmit = async (
+        event: React.FormEvent<HTMLFormElement>,
+    ): Promise<void> => {
         event.preventDefault();
         const userInfo: UserInfo = { username, password };
-        login(userInfo);
         setUsername("");
         setPassword("");
+        await signup(userInfo);
+        login(userInfo);
     };
 
     return (
         <div>
-            <h1>Log In!</h1>
+            <h1>Sign Up!</h1>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -70,13 +98,10 @@ const LoginPage = () => {
                         setPassword(e.target.value)
                     }
                 />
-                <button type="submit">Login</button>
+                <button type="submit">Sign Up</button>
             </form>
-            <p>
-                No account? <Link to="/signup">Sign up!</Link>
-            </p>
         </div>
     );
 };
 
-export default LoginPage;
+export default SignupPage;

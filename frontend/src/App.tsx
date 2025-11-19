@@ -1,8 +1,9 @@
-import { Routes, Route } from "react-router-dom";
-import ListingsPage from "./pages/ListingsPage";
+import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./auth/AuthProvider";
-import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ListingsPage from "./pages/ListingsPage";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 
 const App = () => {
     return (
@@ -17,6 +18,7 @@ const App = () => {
                     }
                 />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
             </Routes>
         </AuthProvider>
     );

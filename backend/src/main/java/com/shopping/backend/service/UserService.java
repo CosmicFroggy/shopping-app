@@ -30,7 +30,7 @@ public class UserService implements UserDetailsService {
     public User registerUser(RegisterRequestDto registerRequest) {
         // check user doesn't already exist
         if (userRepository.findByUsername(registerRequest.getUsername()).isPresent()) {
-            throw new RuntimeException("User already exists!!"); // TODO: create a custom exception here
+            throw new UserAlreadyExistsException("Username is taken.");  // TODO: might need to write better custom exception than this
         }
 
         // create user object and encode the password

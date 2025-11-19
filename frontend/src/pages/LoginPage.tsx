@@ -45,10 +45,10 @@ const LoginPage = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         setError(null);
-        const userInfo: UserInfo = { username, password };
-        login(userInfo);
         setUsername("");
         setPassword("");
+        const userInfo: UserInfo = { username, password };
+        login(userInfo);
     };
 
     return (

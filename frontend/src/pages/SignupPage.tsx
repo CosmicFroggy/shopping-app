@@ -6,6 +6,7 @@ import type { UserInfo } from "../types/UserInfo.";
 const SignupPage = () => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [error, setError] = useState<string | null>(null);
     const { token, setToken } = useAuth();
     const navigate = useNavigate();
 
@@ -41,7 +42,7 @@ const SignupPage = () => {
         }
     };
 
-    const signup = async (userInfo: UserInfo): Promise<void> => {
+    const signup = async (userInfo: UserInfo): Promise<boolean> => {
         try {
             const res: Response = await fetch(
                 "http://localhost:8080/user/register",
@@ -55,14 +56,16 @@ const SignupPage = () => {
             );
 
             if (!res.ok) {
-                throw new Error(
-                    `Could not create user. Request response status: ${res.status}`,
-                );
+                const data = await res.json(); // TODO: define a type for the response body?
+                setError(data.error);
+                return false;
             }
+            return true;
         } catch (error) {
             if (error instanceof Error) {
                 console.error(error.message);
             }
+            return false;
         }
     };
 
@@ -70,16 +73,21 @@ const SignupPage = () => {
         event: React.FormEvent<HTMLFormElement>,
     ): Promise<void> => {
         event.preventDefault();
-        const userInfo: UserInfo = { username, password };
+        setError(null);
         setUsername("");
         setPassword("");
-        await signup(userInfo);
-        login(userInfo);
+        const userInfo: UserInfo = { username, password };
+        const success: boolean = await signup(userInfo);
+        if (success) {
+            login(userInfo);
+        }
     };
 
     return (
         <div>
             <h1>Sign Up!</h1>
+            {/* conditionally show signup error */}
+            {error && <p style={{ color: "red" }}>{error}</p>}
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"

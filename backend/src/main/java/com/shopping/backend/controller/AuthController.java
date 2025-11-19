@@ -1,6 +1,5 @@
 package com.shopping.backend.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -17,12 +16,15 @@ import com.shopping.backend.util.JWTUtil;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JWTUtil jwtUtil;
-    
+    private final AuthenticationManager authenticationManager;
+    private final JWTUtil jwtUtil;
+
+    public AuthController(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+        this.authenticationManager = authenticationManager;
+        this.jwtUtil = jwtUtil;
+    }
+
     @PostMapping()  // TODO: wrap this in a responseentity?
     public String authenticate(@RequestBody AuthRequestDto authRequest) {
         // TODO: should this logic not be in it's own service?

@@ -6,6 +6,7 @@ import type { UserInfo } from "../types/UserInfo.";
 const LoginPage = () => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [error, setError] = useState<string | null>(null);
     const { token, setToken } = useAuth();
     const navigate = useNavigate();
 
@@ -27,13 +28,14 @@ const LoginPage = () => {
             });
 
             if (!res.ok) {
-                throw new Error(
-                    `Could not find user. Request response status: ${res.status}`,
-                );
+                const data = await res.json(); // TODO: define a type for the response body?
+                setError(data.error);
+            } else {
+                const data = await res.json(); // TODO: define a type for the response body?
+                setToken(data.token);
             }
-            const data = await res.json(); // TODO: define a type for the response body?
-            setToken(data.token);
         } catch (error) {
+            // TODO: do I still need this catch?
             if (error instanceof Error) {
                 console.error(error.message);
             }
@@ -42,6 +44,7 @@ const LoginPage = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
+        setError(null);
         const userInfo: UserInfo = { username, password };
         login(userInfo);
         setUsername("");
@@ -51,6 +54,8 @@ const LoginPage = () => {
     return (
         <div>
             <h1>Log In!</h1>
+            {/* conditionally show login error */}
+            {error && <p style={{ color: "red" }}>{error}</p>}
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"

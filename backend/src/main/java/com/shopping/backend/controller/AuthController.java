@@ -3,7 +3,6 @@ package com.shopping.backend.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,19 +31,11 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    // TODO: create global exception handler?
-
+    // TODO: create global exception handler, with more granular errors?
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ErrorResponseDto> handleBadCredentials(BadCredentialsException error) {
         return ResponseEntity
             .status(HttpStatus.UNAUTHORIZED)
-            .body(new ErrorResponseDto("Incorrect password."));
-    }
-
-    @ExceptionHandler(UsernameNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> handleUsernameNotFound(UsernameNotFoundException error) {
-        return ResponseEntity
-            .status(HttpStatus.NOT_FOUND)
-            .body(new ErrorResponseDto("User does not exist."));
+            .body(new ErrorResponseDto("Invalid credentials."));
     }
 }

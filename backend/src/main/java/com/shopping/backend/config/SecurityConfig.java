@@ -1,6 +1,5 @@
 package com.shopping.backend.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,9 +27,6 @@ import com.shopping.backend.repository.UserRepository;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    JWTAuthenticationFilter jwtAuthenticationFilter;
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -51,7 +47,7 @@ public class SecurityConfig {
     // TODO: currently, requests to /listing without tokens return 403, should this not be 401?
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JWTAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         http
             .csrf(csrf -> csrf.disable()) // not needed in rest api
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))

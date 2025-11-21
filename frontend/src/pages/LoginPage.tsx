@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../auth/useAuth";
 import { useNavigate, Link } from "react-router-dom";
 import type { UserInfo } from "../types/UserInfo.";
+import NavBar from "../components/NavBar";
 
 const LoginPage = () => {
     const [username, setUsername] = useState<string>("");
@@ -53,33 +54,43 @@ const LoginPage = () => {
 
     return (
         <div>
-            <h1>Log In!</h1>
-            {/* conditionally show login error */}
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={username}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
-                        setUsername(e.target.value)
-                    }
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
-                        setPassword(e.target.value)
-                    }
-                />
-                <button type="submit">Login</button>
-            </form>
-            <p>
-                No account? <Link to="/signup">Sign up!</Link>
-            </p>
+            <NavBar />
+            <div className="flex h-screen items-center justify-center">
+                <div className="flex flex-col bg-cyan-200 drop-shadow-sm rounded-md p-8">
+                    <h1 className="text-2xl font-semibold">Log In!</h1>
+                    <form className="flex flex-col" onSubmit={handleSubmit}>
+                        {/* conditionally show login error */}
+                        {error && <p className="text-red-600">{error}</p>}
+                        <input
+                            className="border-b-2 focus:outline-none"
+                            type="text"
+                            name="username"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>,
+                            ): void => setUsername(e.target.value)}
+                        />
+                        <input
+                            className="border-b-2 focus:outline-none"
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>,
+                            ): void => setPassword(e.target.value)}
+                        />
+                        <button type="submit">Login</button>
+                    </form>
+                    <p>
+                        No account?{" "}
+                        <Link className="text-blue-600" to="/signup">
+                            Sign up!
+                        </Link>
+                    </p>
+                </div>
+            </div>
         </div>
     );
 };

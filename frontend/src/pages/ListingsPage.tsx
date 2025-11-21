@@ -3,6 +3,8 @@ import type { Listing } from "../types/Listing";
 import type { ListingInfo } from "../types/ListingInfo";
 import ListingForm from "../components/ListingForm";
 import { useAuth } from "../auth/useAuth";
+import ListingList from "../components/ListingList";
+import NavBar from "../components/NavBar";
 
 const ListingsPage = () => {
     const [listings, setListings] = useState<Listing[]>([]);
@@ -106,18 +108,12 @@ const ListingsPage = () => {
 
     return (
         <div>
-            <ol>
-                {listings.map((listing: Listing) => (
-                    <li key={listing.id}>
-                        <h3>{listing.name}</h3>
-                        <p>{listing.description}</p>
-                        <p>{listing.price}</p>
-                        <button onClick={() => deleteListingById(listing.id)}>
-                            Delete Listing
-                        </button>
-                    </li>
-                ))}
-            </ol>
+            <NavBar />
+            <h1>Listings!</h1>
+            <ListingList
+                listings={listings}
+                deleteListingByID={deleteListingById}
+            />
             <ListingForm createListing={createListing}></ListingForm>
             <button onClick={() => setToken(null)}>Log out</button>
         </div>

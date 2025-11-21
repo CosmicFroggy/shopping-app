@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../auth/useAuth";
 import { useNavigate, Link } from "react-router-dom";
 import type { UserInfo } from "../types/UserInfo.";
+import NavBar from "../components/NavBar";
 
 const SignupPage = () => {
     const [username, setUsername] = useState<string>("");
@@ -85,6 +86,7 @@ const SignupPage = () => {
 
     return (
         <div>
+            <NavBar />
             <h1>Sign Up!</h1>
             {/* conditionally show signup error */}
             {error && <p style={{ color: "red" }}>{error}</p>}

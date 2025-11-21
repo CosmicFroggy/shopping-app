@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.listing-list {
+    @apply grid grid-cols-4 bg-[#4f75d6] p-2;
+}
+
+.listing-card {
+    @apply bg-[#7591d8] p-2 m-1.5;
+}

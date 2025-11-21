@@ -1,11 +1,11 @@
 import { useState } from "react";
 import type { ListingInfo } from "../types/ListingInfo";
 
-type props = {
+type Props = {
     createListing: (listingInfo: ListingInfo) => void;
 };
 
-const ListingForm = ({ createListing }: props) => {
+const ListingForm = ({ createListing }: Props) => {
     const [name, setName] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [price, setPrice] = useState<string>("");

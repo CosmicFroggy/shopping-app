@@ -4,6 +4,7 @@ import type { ListingInfo } from "../types/ListingInfo";
 import ListingForm from "../components/ListingForm";
 import { useAuth } from "../auth/useAuth";
 import ListingList from "../components/ListingList";
+import NavBar from "../components/NavBar";
 
 const ListingsPage = () => {
     const [listings, setListings] = useState<Listing[]>([]);
@@ -107,6 +108,8 @@ const ListingsPage = () => {
 
     return (
         <div>
+            <NavBar />
+            <h1>Listings!</h1>
             <ListingList
                 listings={listings}
                 deleteListingByID={deleteListingById}

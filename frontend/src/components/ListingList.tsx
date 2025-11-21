@@ -8,7 +8,7 @@ interface Props {
 
 const ListingList = ({ listings, deleteListingByID }: Props) => {
     return (
-        <ol>
+        <ol className="listing-list">
             {listings.map((listing: Listing) => (
                 <ListingCard
                     listing={listing}

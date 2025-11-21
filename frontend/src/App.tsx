@@ -4,6 +4,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ListingsPage from "./pages/ListingsPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import "./App.css";
 
 const App = () => {
     return (

@@ -7,7 +7,7 @@ interface Props {
 
 const ListingCard = ({ listing, onDelete }: Props) => {
     return (
-        <li>
+        <li className="listing-card">
             <h3>{listing.name}</h3>
             <p>{listing.description}</p>
             <p>{listing.price}</p>

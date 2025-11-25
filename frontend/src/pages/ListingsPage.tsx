@@ -8,7 +8,7 @@ import NavBar from "../components/NavBar";
 
 const ListingsPage = () => {
     const [listings, setListings] = useState<Listing[]>([]);
-    const { token, setToken } = useAuth();
+    const { token } = useAuth();
 
     useEffect(() => {
         const getListings = async (): Promise<void> => {
@@ -115,7 +115,6 @@ const ListingsPage = () => {
                 deleteListingByID={deleteListingById}
             />
             <ListingForm createListing={createListing}></ListingForm>
-            <button onClick={() => setToken(null)}>Log out</button>
         </div>
     );
 };

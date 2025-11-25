@@ -23,7 +23,7 @@ const NavBar = () => {
                 onClick={() => setOpen(!open)}
             />
             {open && (
-                <div className="absolute top-full right-0">
+                <div className="z-50 absolute top-full right-0">
                     <SideBar />
                 </div>
             )}

@@ -13,6 +13,9 @@ const NavBar = () => {
             <div className="flex items-center">
                 <img src={logo} alt="Logo" className="h-10 z-50" />
                 <h1 className="text-4xl font-semibold ml-2">Flower Shop</h1>
+                <Link className="ml-4 font-bold" to="/">
+                    Home
+                </Link>
             </div>
             <img
                 src={account}

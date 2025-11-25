@@ -8,10 +8,12 @@ interface Props {
 const ListingCard = ({ listing, onDelete }: Props) => {
     return (
         <li className="listing-card">
-            <h3>{listing.name}</h3>
+            <h3 className="listing-card-title">{listing.name}</h3>
             <p>{listing.description}</p>
-            <p>{listing.price}</p>
-            <button onClick={() => onDelete()}>Delete Listing</button>
+            <p className="italic">£{listing.price}</p>
+            <button className="bg-red-500 p-0.5" onClick={() => onDelete()}>
+                Delete Listing
+            </button>
         </li>
     );
 };

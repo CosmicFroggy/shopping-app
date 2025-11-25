@@ -7,3 +7,7 @@
 .listing-card {
     @apply bg-[#7591d8] p-2 m-1.5;
 }
+
+.listing-card-title {
+    @apply text-lg font-semibold;
+}

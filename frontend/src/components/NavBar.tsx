@@ -2,10 +2,11 @@ import logo from "../assets/logo.png";
 import account from "../assets/account.png";
 import { useState } from "react";
 import { useAuth } from "../auth/useAuth";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
     const [open, setOpen] = useState<boolean>(false);
-    const { setToken } = useAuth();
+    const { token, setToken } = useAuth();
 
     return (
         <div className="relative bg-amber-200 p-2.5 flex items-center justify-between">
@@ -21,7 +22,19 @@ const NavBar = () => {
             />
             {open && (
                 <div className="absolute top-full right-0 h-60 w-60 bg-blue-400 border-2 border-amber-200">
-                    <button onClick={() => setToken(null)}>Log out</button>
+                    {token && (
+                        <button onClick={() => setToken(null)}>Log out</button>
+                    )}
+                    {!token && (
+                        <ol>
+                            <li>
+                                <Link to="/login">Log in</Link>
+                            </li>
+                            <li>
+                                <Link to="/signup">Sign up</Link>
+                            </li>
+                        </ol>
+                    )}
                 </div>
             )}
         </div>

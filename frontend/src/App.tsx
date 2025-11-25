@@ -4,6 +4,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ListingsPage from "./pages/ListingsPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import CreateListingPage from "./pages/CreateListingPage";
 import "./App.css";
 
 const App = () => {
@@ -15,6 +16,14 @@ const App = () => {
                     element={
                         <ProtectedRoute>
                             <ListingsPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/create"
+                    element={
+                        <ProtectedRoute>
+                            <CreateListingPage />
                         </ProtectedRoute>
                     }
                 />

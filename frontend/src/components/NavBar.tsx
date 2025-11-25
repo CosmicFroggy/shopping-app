@@ -22,19 +22,22 @@ const NavBar = () => {
             />
             {open && (
                 <div className="absolute top-full right-0 h-60 w-60 bg-blue-400 border-2 border-amber-200">
-                    {token && (
-                        <button onClick={() => setToken(null)}>Log out</button>
-                    )}
-                    {!token && (
-                        <ol>
-                            <li>
-                                <Link to="/login">Log in</Link>
-                            </li>
-                            <li>
-                                <Link to="/signup">Sign up</Link>
-                            </li>
-                        </ol>
-                    )}
+                    <ol>
+                        <li hidden={!token}>
+                            <button onClick={() => setToken(null)}>
+                                Log out
+                            </button>
+                        </li>
+                        <li hidden={!token}>
+                            <Link to="/create">Create listing</Link>
+                        </li>
+                        <li hidden={!!token}>
+                            <Link to="/login">Log in</Link>
+                        </li>
+                        <li hidden={!!token}>
+                            <Link to="/signup">Sign up</Link>
+                        </li>
+                    </ol>
                 </div>
             )}
         </div>

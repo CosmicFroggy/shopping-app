@@ -87,33 +87,49 @@ const SignupPage = () => {
     return (
         <div>
             <NavBar />
-            <h1>Sign Up!</h1>
-            {/* conditionally show signup error */}
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={username}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
-                        setUsername(e.target.value)
-                    }
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
-                        setPassword(e.target.value)
-                    }
-                />
-                <button type="submit">Sign Up</button>
-            </form>
-            <p>
-                Already have an account? <Link to="/login">Log in!</Link>
-            </p>
+            <div className="flex h-screen items-center justify-center">
+                <div className="flex flex-col bg-cyan-200 drop-shadow-sm rounded-md p-8">
+                    <h1 className="text-2xl font-semibold">Sign Up!</h1>
+                    <form className="flex flex-col" onSubmit={handleSubmit}>
+                        {/* conditionally show signup error */}
+                        {error && (
+                            <p
+                                className="text-red-600"
+                                style={{ color: "red" }}
+                            >
+                                {error}
+                            </p>
+                        )}
+                        <input
+                            className="border-b-2 focus:outline-none"
+                            type="text"
+                            name="username"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>,
+                            ): void => setUsername(e.target.value)}
+                        />
+                        <input
+                            className="border-b-2 focus:outline-none"
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>,
+                            ): void => setPassword(e.target.value)}
+                        />
+                        <button type="submit">Sign Up</button>
+                    </form>
+                    <p>
+                        Already have an account?{" "}
+                        <Link className="text-blue-600" to="/login">
+                            Log in!
+                        </Link>
+                    </p>
+                </div>
+            </div>
         </div>
     );
 };

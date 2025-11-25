@@ -109,7 +109,6 @@ const ListingsPage = () => {
     return (
         <div>
             <NavBar />
-            <h1>Listings!</h1>
             <ListingList
                 listings={listings}
                 deleteListingByID={deleteListingById}

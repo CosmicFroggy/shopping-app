@@ -5,5 +5,9 @@
 }
 
 .listing-card {
-    @apply bg-[#7591d8] p-2 m-1.5;
+    @apply bg-[#7591d8] p-2 m-1.5 rounded-md shadow-md;
+}
+
+.listing-card-title {
+    @apply text-lg font-semibold;
 }

@@ -9,9 +9,7 @@ pipeline {
         // }
         stage('Test') {
             steps {
-                bat 'cd ./frontend'
-                bat 'npm ci'
-                bat 'npm run test'
+                bat 'cd ./frontend && npm ci && npm run test'
             }
         }
         // stage('Deploy') {

@@ -17,11 +17,16 @@ const CreateListingPage = () => {
             }
             headers["Content-Type"] = "application/json";
 
-            const res: Response = await fetch("http://localhost:8080/listing", {
-                method: "POST",
-                headers,
-                body: JSON.stringify(listingInfo),
-            });
+            const backendPort: string =
+                import.meta.env.VITE_BACKEND_PORT || "8080";
+            const res: Response = await fetch(
+                `http://localhost:${backendPort}/listing`,
+                {
+                    method: "POST",
+                    headers,
+                    body: JSON.stringify(listingInfo),
+                },
+            );
 
             if (!res.ok) {
                 throw new Error(

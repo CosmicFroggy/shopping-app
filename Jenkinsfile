@@ -1,26 +1,60 @@
 pipeline {
     agent any
 
+    tools {
+        maven Maven
+    }
+
+    environment {
+        FRONTEND_PORT = 5175
+        BACKEND_PORT = 8083
+    }
+
     stages {
-        // stage('Build') {
-        //     steps {
-        //         echo 'Building..'
-        //     }
-        // }
-        stage('Test') {
+        stage('Startup') {
             steps {
-                bat 'cd ./frontend && npm ci && npm run test'
+                // start the backend and frontend as background processes
+
+                //TODO: convert these to groovy functions?
+                echo "Starting backend on port ${BACKEND_PORT}"
+                bat """
+                    cd ./backend
+                    start "" mvn spring-boot:run -Drun.arguments=--server.port=${BACKEND_PORT}
+                """
+
+                echo 'Installing frontend dependencies'
+                bat 'cd ./frontend && npm ci'
+
+                echo "Starting frontend on port ${FRONTEND_PORT}"
+                bat """
+                    cd ./frontend
+                    start "" cmd /c "set VITE_BACKEND_PORT=${BACKEND_PORT} && npm run dev -- --port ${FRONTEND_PORT}"
+                """
             }
         }
-        // stage('Deploy') {
-        //     steps {
-        //         echo 'Deploying....'
-        //     }
-        // }
+        stage('Test') {
+            steps {
+                //TODO: need to make sure the tests wait till the servers are running fully
+                echo 'Testing the frontend'
+                bat 'cd ./frontend && npm run test'
+            }
+        }
     }
 
     post {
         always {
+            echo 'Shutting down backend'
+            bat """
+                for /f "tokens=5" %%i in ('netstat -ano ^| findstr :${BACKEND_PORT}') do (set PID=%%i)
+                taskkill /PID PID
+            """
+
+            echo 'Shutting down frontend'
+            bat """
+                for /f "tokens=5" %%j in ('netstat -ano ^| findstr :${FRONTEND_PORT}') do (set PID=%%j)
+                taskkill /PID PID
+            """
+
             junit 'frontend/test-results/junit.xml'
         }
     }

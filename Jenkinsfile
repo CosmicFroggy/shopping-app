@@ -27,8 +27,8 @@ pipeline {
                     utils.startFrontend(FRONTEND_PORT, BACKEND_PORT)
 
                     echo 'Waiting until frontend and backend are ready...'
-                    myUtils.waitForPort(FRONTEND_PORT)
-                    myUtils.waitForPort(BACKEND_PORT)
+                    utils.waitForPort(FRONTEND_PORT)
+                    utils.waitForPort(BACKEND_PORT)
                     echo 'ready!'
                 }
             }

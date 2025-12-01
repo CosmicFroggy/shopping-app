@@ -26,14 +26,11 @@ pipeline {
                     echo "Starting frontend on port ${FRONTEND_PORT}"
                     utils.startFrontend(FRONTEND_PORT, BACKEND_PORT)
 
-                    echo 'waiting for 1 minute'
-                    sleep(60)
+                    echo 'Waiting until frontend and backend are ready...'
+                    myUtils.waitForPort(FRONTEND_PORT)
+                    myUtils.waitForPort(BACKEND_PORT)
+                    echo 'ready!'
                 }
-                // echo 'Waiting until frontend and backend are ready'
-                // script {
-                //     //myUtils.waitForPort(FRONTEND_PORT)
-                //     myUtils.waitForPort(env.BACKEND_PORT as int)
-                // }
             }
         }
         // stage('Test') {

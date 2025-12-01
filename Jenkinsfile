@@ -1,4 +1,4 @@
-//def myUtils
+def myUtils
 
 pipeline {
     agent any
@@ -27,10 +27,7 @@ pipeline {
 
                 //TODO: convert these to groovy functions?
                 echo "Starting backend on port ${BACKEND_PORT}"
-                bat """
-                    cd ./backend
-                    start "" mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=${BACKEND_PORT}"
-                """
+                myUtils.startBackend(BACKEND_PORT)
 
                 echo 'Installing frontend dependencies'
                 bat 'cd ./frontend && npm ci'

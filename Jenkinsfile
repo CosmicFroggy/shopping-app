@@ -1,5 +1,3 @@
-def myUtils
-
 pipeline {
     agent any
 
@@ -13,19 +11,12 @@ pipeline {
     }
 
     stages {
-        stage('Init') {
-            steps {
-                script {
-                    myUtils = load './utils.groovy'
-                }
-            }
-        }
-
         stage('Startup') {
             steps {
                 // start the backend and frontend as background processes
                 script {
-                    //TODO: convert these to groovy functions?
+                    def myUtils = load './utils.groovy'
+
                     echo "Starting backend on port ${BACKEND_PORT}"
                     myUtils.startBackend(BACKEND_PORT)
 

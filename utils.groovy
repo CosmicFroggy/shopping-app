@@ -1,4 +1,4 @@
-def startBackend(Integer port) {
+def startBackend(String port) {
     bat """
         cd ./backend
         start "" mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=${port}"
@@ -9,10 +9,10 @@ def installFrontendDependencies() {
     bat 'cd ./frontend && npm ci'
 }
 
-def startFrontend(Integer port, Integer backendPort) {
+def startFrontend(String port, String backendPort) {
     bat """
         cd ./frontend
-        start "" cmd /c "set VITE_BACKEND_PORT=${BACKEND_PORT} && npm run dev -- --port ${FRONTEND_PORT}"
+        start "" cmd /c "set VITE_BACKEND_PORT=${backendPort} && npm run dev -- --port ${port}"
     """
 }
 

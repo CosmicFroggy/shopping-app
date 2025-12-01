@@ -35,4 +35,12 @@ void waitForPort(int port, int timeoutSeconds = 30) {
     error "Timeout waiting for port ${port} to open"
 }
 
+void testFrontend(int frontendPort) {
+    bat """
+        cd ./frontend
+        set FRONTEND_PORT=${frontendPort}
+        npm run test"
+    """
+}
+
 return this;

@@ -27,18 +27,23 @@ pipeline {
                     utils.startFrontend(FRONTEND_PORT as int, BACKEND_PORT as int)
 
                     echo 'Waiting until frontend and backend are ready...'
-                    utils.waitForPort(FRONTEND_PORT as int)
-                    utils.waitForPort(BACKEND_PORT as int)
+                    // utils.waitForPort(FRONTEND_PORT as int)
+                    // utils.waitForPort(BACKEND_PORT as int)
+                    sleep(30)
                     echo 'ready!'
                 }
             }
         }
-        // stage('Test') {
-        //     steps {
-        //         echo 'Testing the frontend'
-        //         bat 'cd ./frontend && npm run test'
-        //     }
-        // }
+        stage('Test') {
+            steps {
+                script {
+                    def utils = load("./utils.groovy")
+
+                    echo 'Testing the frontend'
+                    utils.testFrontend(FRONTEND_PORT as int)
+                }
+            }
+        }
     }
 
     post {
@@ -55,7 +60,7 @@ pipeline {
             //     taskkill /PID PID
             // """
 
-            // junit 'frontend/test-results/junit.xml'
+            junit 'frontend/test-results/junit.xml'
         }
     }
 }

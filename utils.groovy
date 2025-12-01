@@ -1,4 +1,4 @@
-void startBackend(String port) {
+void startBackend(int port) {
     bat """
         cd ./backend
         start "" mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=${port}"
@@ -9,14 +9,14 @@ void installFrontendDependencies() {
     bat 'cd ./frontend && npm ci'
 }
 
-void startFrontend(String port, String backendPort) {
+void startFrontend(int port, int backendPort) {
     bat """
         cd ./frontend
         start "" cmd /c "set VITE_BACKEND_PORT=${backendPort} && npm run dev -- --port ${port}"
     """
 }
 
-void waitForPort(String port, Integer timeoutSeconds = 30) {
+void waitForPort(int port, int timeoutSeconds = 30) {
     Integer deadline = System.currentTimeMillis() + timeoutSeconds * 1000
     while (System.currentTimeMillis() < deadline) {
         try {

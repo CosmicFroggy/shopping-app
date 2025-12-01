@@ -18,17 +18,17 @@ pipeline {
                     def utils = load("./utils.groovy")
 
                     echo "Starting backend on port ${BACKEND_PORT}"
-                    utils.startBackend(BACKEND_PORT)
+                    utils.startBackend(BACKEND_PORT as int)
 
                     echo 'Installing frontend dependencies'
                     utils.installFrontendDependencies()
 
                     echo "Starting frontend on port ${FRONTEND_PORT}"
-                    utils.startFrontend(FRONTEND_PORT, BACKEND_PORT)
+                    utils.startFrontend(FRONTEND_PORT as int, BACKEND_PORT as int)
 
                     echo 'Waiting until frontend and backend are ready...'
-                    utils.waitForPort(FRONTEND_PORT)
-                    utils.waitForPort(BACKEND_PORT)
+                    utils.waitForPort(FRONTEND_PORT as int)
+                    utils.waitForPort(BACKEND_PORT as int)
                     echo 'ready!'
                 }
             }

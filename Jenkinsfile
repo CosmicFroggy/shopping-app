@@ -1,3 +1,5 @@
+def myUtils
+
 pipeline {
     agent any
 
@@ -11,6 +13,14 @@ pipeline {
     }
 
     stages {
+        stage('Init') {
+            steps {
+                script {
+                    myUtils = load './utils.groovy'
+                }
+            }
+        }
+
         stage('Startup') {
             steps {
                 // start the backend and frontend as background processes
@@ -30,11 +40,16 @@ pipeline {
                     cd ./frontend
                     start "" cmd /c "set VITE_BACKEND_PORT=${BACKEND_PORT} && npm run dev -- --port ${FRONTEND_PORT}"
                 """
+
+                echo 'Waiting until frontend and backend are ready'
+                script {
+                    myUtils.waitForPort(FRONTEND_PORT)
+                    myUtils.waitForPort(BACKEND_PORT)
+                }
             }
         }
         stage('Test') {
             steps {
-                //TODO: need to make sure the tests wait till the servers are running fully
                 echo 'Testing the frontend'
                 bat 'cd ./frontend && npm run test'
             }

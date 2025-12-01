@@ -15,10 +15,8 @@ pipeline {
             steps {
                 // start the backend and frontend as background processes
                 script {
-                    def myUtils = load './utils.groovy'
-
                     echo "Starting backend on port ${BACKEND_PORT}"
-                    myUtils.startBackend(BACKEND_PORT)
+                    load('./utils.groovy').startBackend(BACKEND_PORT)
 
                     echo 'Installing frontend dependencies'
                     bat 'cd ./frontend && npm ci'

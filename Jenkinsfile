@@ -24,21 +24,20 @@ pipeline {
         stage('Startup') {
             steps {
                 // start the backend and frontend as background processes
-
-                //TODO: convert these to groovy functions?
-                echo "Starting backend on port ${BACKEND_PORT}"
-                myUtils.startBackend(BACKEND_PORT)
-
-                echo 'Installing frontend dependencies'
-                bat 'cd ./frontend && npm ci'
-
-                echo "Starting frontend on port ${FRONTEND_PORT}"
-                bat """
-                    cd ./frontend
-                    start "" cmd /c "set VITE_BACKEND_PORT=${BACKEND_PORT} && npm run dev -- --port ${FRONTEND_PORT}"
-                """
-
                 script {
+                    //TODO: convert these to groovy functions?
+                    echo "Starting backend on port ${BACKEND_PORT}"
+                    myUtils.startBackend(BACKEND_PORT)
+
+                    echo 'Installing frontend dependencies'
+                    bat 'cd ./frontend && npm ci'
+
+                    echo "Starting frontend on port ${FRONTEND_PORT}"
+                    bat """
+                        cd ./frontend
+                        start "" cmd /c "set VITE_BACKEND_PORT=${BACKEND_PORT} && npm run dev -- --port ${FRONTEND_PORT}"
+                    """
+
                     echo 'waiting for 1 minute'
                     sleep(60)
                 }

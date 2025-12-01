@@ -29,22 +29,22 @@ pipeline {
                 echo "Starting backend on port ${BACKEND_PORT}"
                 bat """
                     cd ./backend
-                    start "" mvn spring-boot:run -Drun.arguments=--server.port=${BACKEND_PORT}
+                    start "" mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=${BACKEND_PORT}"
                 """
+
+                echo 'Installing frontend dependencies'
+                bat 'cd ./frontend && npm ci'
+
+                echo "Starting frontend on port ${FRONTEND_PORT}"
+                bat """
+                    cd ./frontend
+                    start "" cmd /c "set VITE_BACKEND_PORT=${BACKEND_PORT} && npm run dev -- --port ${FRONTEND_PORT}"
+                """
+
                 script {
                     echo 'waiting for 1 minute'
                     sleep(60)
                 }
-
-                // echo 'Installing frontend dependencies'
-                // bat 'cd ./frontend && npm ci'
-
-                // echo "Starting frontend on port ${FRONTEND_PORT}"
-                // bat """
-                //     cd ./frontend
-                //     start "" cmd /c "set VITE_BACKEND_PORT=${BACKEND_PORT} && npm run dev -- --port ${FRONTEND_PORT}"
-                // """
-
                 // echo 'Waiting until frontend and backend are ready'
                 // script {
                 //     //myUtils.waitForPort(FRONTEND_PORT)

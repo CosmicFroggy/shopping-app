@@ -22,6 +22,7 @@ const LoginPage = () => {
         try {
             const backendPort: string =
                 import.meta.env.VITE_BACKEND_PORT || "8080";
+            console.log(`http://localhost:${backendPort}/auth`);
             const res: Response = await fetch(
                 `http://localhost:${backendPort}/auth`,
                 {

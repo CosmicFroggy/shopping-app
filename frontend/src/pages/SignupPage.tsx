@@ -20,8 +20,8 @@ const SignupPage = () => {
 
     const login = async (userInfo: UserInfo): Promise<void> => {
         try {
-            const backendPort: string =
-                import.meta.env.VITE_BACKEND_PORT || "8080";
+            const backendPort: number =
+                parseInt(import.meta.env.VITE_BACKEND_PORT) || 8080;
             const res: Response = await fetch(
                 `http://localhost:${backendPort}/auth`,
                 {
@@ -50,8 +50,8 @@ const SignupPage = () => {
 
     const signup = async (userInfo: UserInfo): Promise<boolean> => {
         try {
-            const backendPort: string =
-                import.meta.env.VITE_BACKEND_PORT || "8080";
+            const backendPort: number =
+                parseInt(import.meta.env.VITE_BACKEND_PORT) || 8080;
             const res: Response = await fetch(
                 `http://localhost:${backendPort}/user/register`,
                 {

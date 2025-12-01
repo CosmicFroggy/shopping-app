@@ -17,8 +17,8 @@ const CreateListingPage = () => {
             }
             headers["Content-Type"] = "application/json";
 
-            const backendPort: string =
-                import.meta.env.VITE_BACKEND_PORT || "8080";
+            const backendPort: number =
+                parseInt(import.meta.env.VITE_BACKEND_PORT) || 8080;
             const res: Response = await fetch(
                 `http://localhost:${backendPort}/listing`,
                 {

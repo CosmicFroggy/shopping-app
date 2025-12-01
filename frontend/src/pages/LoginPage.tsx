@@ -20,9 +20,8 @@ const LoginPage = () => {
 
     const login = async (userInfo: UserInfo): Promise<void> => {
         try {
-            const backendPort: string =
-                import.meta.env.VITE_BACKEND_PORT || "8080";
-            console.log(`http://localhost:${backendPort}/auth`);
+            const backendPort: number =
+                parseInt(import.meta.env.VITE_BACKEND_PORT) || 8080;
             const res: Response = await fetch(
                 `http://localhost:${backendPort}/auth`,
                 {

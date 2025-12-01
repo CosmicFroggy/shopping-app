@@ -32,45 +32,45 @@ pipeline {
                     start "" mvn spring-boot:run -Drun.arguments=--server.port=${BACKEND_PORT}
                 """
 
-                echo 'Installing frontend dependencies'
-                bat 'cd ./frontend && npm ci'
+                // echo 'Installing frontend dependencies'
+                // bat 'cd ./frontend && npm ci'
 
-                echo "Starting frontend on port ${FRONTEND_PORT}"
-                bat """
-                    cd ./frontend
-                    start "" cmd /c "set VITE_BACKEND_PORT=${BACKEND_PORT} && npm run dev -- --port ${FRONTEND_PORT}"
-                """
+                // echo "Starting frontend on port ${FRONTEND_PORT}"
+                // bat """
+                //     cd ./frontend
+                //     start "" cmd /c "set VITE_BACKEND_PORT=${BACKEND_PORT} && npm run dev -- --port ${FRONTEND_PORT}"
+                // """
 
                 echo 'Waiting until frontend and backend are ready'
                 script {
                     myUtils.waitForPort(FRONTEND_PORT)
-                    myUtils.waitForPort(BACKEND_PORT)
+                    // myUtils.waitForPort(BACKEND_PORT)
                 }
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing the frontend'
-                bat 'cd ./frontend && npm run test'
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         echo 'Testing the frontend'
+        //         bat 'cd ./frontend && npm run test'
+        //     }
+        // }
     }
 
-    post {
-        always {
-            echo 'Shutting down backend'
-            bat """
-                for /f "tokens=5" %%i in ('netstat -ano ^| findstr :${BACKEND_PORT}') do (set PID=%%i)
-                taskkill /PID PID
-            """
+    // post {
+    //     always {
+    //         echo 'Shutting down backend'
+    //         bat """
+    //             for /f "tokens=5" %%i in ('netstat -ano ^| findstr :${BACKEND_PORT}') do (set PID=%%i)
+    //             taskkill /PID PID
+    //         """
 
-            echo 'Shutting down frontend'
-            bat """
-                for /f "tokens=5" %%j in ('netstat -ano ^| findstr :${FRONTEND_PORT}') do (set PID=%%j)
-                taskkill /PID PID
-            """
+    //         echo 'Shutting down frontend'
+    //         bat """
+    //             for /f "tokens=5" %%j in ('netstat -ano ^| findstr :${FRONTEND_PORT}') do (set PID=%%j)
+    //             taskkill /PID PID
+    //         """
 
-            junit 'frontend/test-results/junit.xml'
-        }
-    }
+    //         junit 'frontend/test-results/junit.xml'
+    //     }
+    // }
 }

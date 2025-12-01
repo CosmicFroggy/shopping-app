@@ -43,8 +43,8 @@ pipeline {
 
                 echo 'Waiting until frontend and backend are ready'
                 script {
-                    myUtils.waitForPort(FRONTEND_PORT)
-                    // myUtils.waitForPort(BACKEND_PORT)
+                    //myUtils.waitForPort(FRONTEND_PORT)
+                    myUtils.waitForPort(BACKEND_PORT)
                 }
             }
         }

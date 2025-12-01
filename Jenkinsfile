@@ -46,13 +46,13 @@ pipeline {
 
     post {
         always {
-            // echo 'Shutting down backend'
+            echo 'Shutting down backend'
             // bat """
             //     for /f "tokens=5" %%i in ('netstat -ano ^| findstr :${BACKEND_PORT}') do (set PID=%%i)
             //     taskkill /PID PID
             // """
 
-            // echo 'Shutting down frontend'
+            echo 'Shutting down frontend'
             // bat """
             //     for /f "tokens=5" %%j in ('netstat -ano ^| findstr :${FRONTEND_PORT}') do (set PID=%%j)
             //     taskkill /PID PID

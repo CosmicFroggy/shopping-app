@@ -20,30 +20,34 @@ pipeline {
                 }
             }
         }
+
         stage('Startup') {
             steps {
-                // start the backend and frontend as background processes
-                echo "Starting backend on port ${BACKEND_PORT}"
-                utils.startBackend(BACKEND_PORT as int)
+                script {
+                    // start the backend and frontend as background processes
+                    echo "Starting backend on port ${BACKEND_PORT}"
+                    utils.startBackend(BACKEND_PORT as int)
 
-                echo 'Installing frontend dependencies'
-                utils.installFrontendDependencies()
+                    echo 'Installing frontend dependencies'
+                    utils.installFrontendDependencies()
 
-                echo "Starting frontend on port ${FRONTEND_PORT}"
-                utils.startFrontend(FRONTEND_PORT as int, BACKEND_PORT as int)
+                    echo "Starting frontend on port ${FRONTEND_PORT}"
+                    utils.startFrontend(FRONTEND_PORT as int, BACKEND_PORT as int)
 
-                echo 'Waiting for frontend and backend...'
-                timeout(time:1, unit: 'MINUTES') {
-                    waitUntil {
-                        utils.serverHealthy("http://localhost:${BACKEND_PORT}/actuator/health")
+                    echo 'Waiting for frontend and backend...'
+                    timeout(time:1, unit: 'MINUTES') {
+                        waitUntil {
+                            utils.serverHealthy("http://localhost:${BACKEND_PORT}/actuator/health")
+                        }
+                        waitUntil {
+                            utils.serverHealthy("http://localhost:${FRONTEND_PORT}/health")
+                        }
                     }
-                    waitUntil {
-                        utils.serverHealthy("http://localhost:${FRONTEND_PORT}/health")
-                    }
+                    echo 'ready'
                 }
-                echo 'ready'
             }
         }
+
         stage('Test') {
             steps {
                 script {

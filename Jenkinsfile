@@ -1,3 +1,5 @@
+def utils
+
 pipeline {
     agent any
 
@@ -11,25 +13,30 @@ pipeline {
     }
 
     stages {
+        stage('Init') {
+            steps {
+                script {
+                    utils = load('./utils.groovy')
+                }
+            }
+        }
         stage('Startup') {
             steps {
                 // start the backend and frontend as background processes
                 script {
-                    def utils = load("./utils.groovy")
-
                     echo "Starting backend on port ${BACKEND_PORT}"
                     utils.startBackend(BACKEND_PORT as int)
 
-                    echo 'Installing frontend dependencies'
-                    utils.installFrontendDependencies()
+                    //echo 'Installing frontend dependencies'
+                    //utils.installFrontendDependencies()
 
-                    echo "Starting frontend on port ${FRONTEND_PORT}"
-                    utils.startFrontend(FRONTEND_PORT as int, BACKEND_PORT as int)
+                    //echo "Starting frontend on port ${FRONTEND_PORT}"
+                    //utils.startFrontend(FRONTEND_PORT as int, BACKEND_PORT as int)
 
                     echo 'Waiting until frontend and backend are ready...'
                     // utils.waitForPort(FRONTEND_PORT as int)
-                    // utils.waitForPort(BACKEND_PORT as int)
-                    sleep(30)
+                    utils.waitForPort(BACKEND_PORT as int)
+                    //sleep(30)
                     echo 'ready!'
                 }
             }
@@ -37,8 +44,6 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    def utils = load("./utils.groovy")
-
                     echo 'Testing the frontend'
                     utils.testFrontend(FRONTEND_PORT as int)
                 }

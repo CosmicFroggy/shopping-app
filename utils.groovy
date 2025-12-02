@@ -17,6 +17,7 @@ void startFrontend(int port, int backendPort) {
 }
 
 void waitForPort(int port, int timeoutSeconds = 30) {
+    echo timeoutSeconds.toString()
     Integer deadline = System.currentTimeMillis() + timeoutSeconds * 1000
     while (System.currentTimeMillis() < deadline) {
         try {

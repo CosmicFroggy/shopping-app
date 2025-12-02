@@ -28,22 +28,27 @@ pipeline {
                     echo "Starting backend on port ${BACKEND_PORT}"
                     utils.startBackend(BACKEND_PORT as int)
 
+                    echo 'Waiting for backend...'
+                    timeout(time:1, unit: 'MINUTES') {
+                        waitUntil {
+                            utils.serverHealthy("http://localhost:${BACKEND_PORT}/actuator/health")
+                        }
+                    }
+                    echo 'Backend ready'
+
                     echo 'Installing frontend dependencies'
                     utils.installFrontendDependencies()
 
                     echo "Starting frontend on port ${FRONTEND_PORT}"
                     utils.startFrontend(FRONTEND_PORT as int, BACKEND_PORT as int)
 
-                    echo 'Waiting for frontend and backend...'
+                    echo 'Waiting for frontend...'
                     timeout(time:1, unit: 'MINUTES') {
-                        waitUntil {
-                            utils.serverHealthy("http://localhost:${BACKEND_PORT}/actuator/health")
-                        }
                         waitUntil {
                             utils.serverHealthy("http://localhost:${FRONTEND_PORT}/health")
                         }
                     }
-                    echo 'ready'
+                    echo 'Frontend ready'
                 }
             }
         }

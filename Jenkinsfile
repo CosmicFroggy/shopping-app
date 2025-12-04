@@ -40,7 +40,8 @@ pipeline {
                     utils.installFrontendDependencies()
 
                     echo "Starting frontend on port ${FRONTEND_PORT}"
-                    utils.startFrontend(FRONTEND_PORT as int, BACKEND_PORT as int)
+                    def pid = utils.startFrontend(FRONTEND_PORT as int, BACKEND_PORT as int)
+                    echo pid
 
                     echo 'Waiting for frontend...'
                     timeout(time:1, unit: 'MINUTES') {
@@ -61,22 +62,26 @@ pipeline {
                 }
             }
         }
+
+        stage('Shutdown') {
+            steps {
+                echo 'Shutting down backend'
+                // bat """
+                //     for /f "tokens=5" %%i in ('netstat -ano ^| findstr :${BACKEND_PORT}') do (set PID=%%i)
+                //     taskkill /PID PID
+                // """
+
+                echo 'Shutting down frontend'
+                // bat """
+                //     for /f "tokens=5" %%j in ('netstat -ano ^| findstr :${FRONTEND_PORT}') do (set PID=%%j)
+                //     taskkill /PID PID
+                // """
+            }
+        }
     }
 
     post {
         always {
-            echo 'Shutting down backend'
-            // bat """
-            //     for /f "tokens=5" %%i in ('netstat -ano ^| findstr :${BACKEND_PORT}') do (set PID=%%i)
-            //     taskkill /PID PID
-            // """
-
-            echo 'Shutting down frontend'
-            // bat """
-            //     for /f "tokens=5" %%j in ('netstat -ano ^| findstr :${FRONTEND_PORT}') do (set PID=%%j)
-            //     taskkill /PID PID
-            // """
-
             junit 'frontend/test-results/junit.xml'
         }
     }

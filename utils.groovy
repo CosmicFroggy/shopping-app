@@ -9,15 +9,17 @@ void installFrontendDependencies() {
     bat 'cd ./frontend && npm ci'
 }
 
-void startFrontend(int port, int backendPort) {
-    bat """
+String startFrontend(int port, int backendPort) {
+    String pid = powershell """
         cd ./frontend
-        start "" cmd /c "set VITE_BACKEND_PORT=${backendPort} && npm run dev -- --port ${port}"
+        \$process = Start-Process -FilePath "npm.cmd" -ArgumentList "run dev -- --port ${port}" -Environment @{VITE_BACKEND_PORT='${backendPort}'} -PassThru
+        echo $process.Id
     """
+    return pid
 }
 
 boolean serverHealthy(String url) {
-    def status = bat script: "curl -s --head --fail ${url}", returnStatus: true
+    int status = bat script: "curl -s --head --fail ${url}", returnStatus: true
     return (status == 0)
 }
 

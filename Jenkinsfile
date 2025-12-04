@@ -65,12 +65,14 @@ pipeline {
 
         stage('Shutdown') {
             steps {
-                echo 'Shutting down backend'
-                def backendPid = new File('./backend/application.pid').text
-                utils.stopProcess(backendPid as int)
+                script {
+                    echo 'Shutting down backend'
+                    def backendPid = new File('./backend/application.pid').text
+                    utils.stopProcess(backendPid as int)
 
-                echo 'Shutting down frontend'
-                utils.stopProcess(FRONTEND_PID as int)
+                    echo 'Shutting down frontend'
+                    utils.stopProcess(FRONTEND_PID as int)
+                }
             }
         }
     }

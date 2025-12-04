@@ -12,8 +12,9 @@ void installFrontendDependencies() {
 String startFrontend(int port, int backendPort) {
     String pid = powershell """
         cd ./frontend
-        \$process = Start-Process -FilePath "npm.cmd" -ArgumentList "run dev -- --port ${port}" -Environment @{VITE_BACKEND_PORT='${backendPort}'} -PassThru
-        echo $process.Id
+        \$Env:VITE_BACKEND_PORT = "${backendPort}"
+        \$process = Start-Process -FilePath "npm.cmd" -ArgumentList "run dev -- --port ${port}" -PassThru
+        echo \$process.Id
     """
     return pid
 }

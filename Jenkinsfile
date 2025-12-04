@@ -18,6 +18,7 @@ pipeline {
         stage('Init') {
             steps {
                 script {
+                    echo 'Loading utility scripts'
                     utils = load('./utils.groovy')
                 }
             }
@@ -26,6 +27,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
+                    echo 'Building backend'
                     utils.buildBackend()
                 }
             }

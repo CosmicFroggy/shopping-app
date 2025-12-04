@@ -10,7 +10,6 @@ pipeline {
     environment {
         BACKEND_PORT = 8083
         FRONTEND_PORT = 5175
-        BACKEND_PID = null
         FRONTEND_PID = null
     }
 
@@ -28,7 +27,7 @@ pipeline {
                 script {
                     // start the backend and frontend as background processes
                     echo "Starting backend on port ${BACKEND_PORT}"
-                    BACKEND_PID = utils.startBackend(BACKEND_PORT as int)
+                    utils.startBackend(BACKEND_PORT as int)
 
                     echo 'Waiting for backend...'
                     timeout(time:1, unit: 'MINUTES') {
@@ -67,7 +66,8 @@ pipeline {
         stage('Shutdown') {
             steps {
                 echo 'Shutting down backend'
-                echo BACKEND_PID
+                def backendPid = new File('./backend/application.pid').text
+                echo backendPid
                 // bat """
                 //     for /f "tokens=5" %%i in ('netstat -ano ^| findstr :${BACKEND_PORT}') do (set PID=%%i)
                 //     taskkill /PID PID

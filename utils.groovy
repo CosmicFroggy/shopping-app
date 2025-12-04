@@ -33,4 +33,10 @@ void testFrontend(int frontendPort) {
     """
 }
 
+void stopProcess(int id) {
+    powershell """
+        Stop-Process -Id ${id} -Force
+    """
+}
+
 return this;

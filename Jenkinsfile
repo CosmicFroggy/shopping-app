@@ -67,18 +67,10 @@ pipeline {
             steps {
                 echo 'Shutting down backend'
                 def backendPid = new File('./backend/application.pid').text
-                echo backendPid
-                // bat """
-                //     for /f "tokens=5" %%i in ('netstat -ano ^| findstr :${BACKEND_PORT}') do (set PID=%%i)
-                //     taskkill /PID PID
-                // """
+                utils.stopProcess(backendPid as int)
 
                 echo 'Shutting down frontend'
-                echo FRONTEND_PID
-                // bat """
-                //     for /f "tokens=5" %%j in ('netstat -ano ^| findstr :${FRONTEND_PORT}') do (set PID=%%j)
-                //     taskkill /PID PID
-                // """
+                utils.stopProcess(FRONTEND_PID as int)
             }
         }
     }

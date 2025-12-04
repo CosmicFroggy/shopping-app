@@ -10,6 +10,8 @@ pipeline {
     environment {
         BACKEND_PORT = 8083
         FRONTEND_PORT = 5175
+        BACKEND_PID = null
+        FRONTEND_PID = null
     }
 
     stages {
@@ -40,8 +42,7 @@ pipeline {
                     utils.installFrontendDependencies()
 
                     echo "Starting frontend on port ${FRONTEND_PORT}"
-                    def pid = utils.startFrontend(FRONTEND_PORT as int, BACKEND_PORT as int)
-                    echo pid
+                    FRONTEND_PID = utils.startFrontend(FRONTEND_PORT as int, BACKEND_PORT as int)
 
                     echo 'Waiting for frontend...'
                     timeout(time:1, unit: 'MINUTES') {
@@ -72,6 +73,7 @@ pipeline {
                 // """
 
                 echo 'Shutting down frontend'
+                echo FRONTEND_PID
                 // bat """
                 //     for /f "tokens=5" %%j in ('netstat -ano ^| findstr :${FRONTEND_PORT}') do (set PID=%%j)
                 //     taskkill /PID PID

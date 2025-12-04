@@ -20,13 +20,18 @@ const SignupPage = () => {
 
     const login = async (userInfo: UserInfo): Promise<void> => {
         try {
-            const res: Response = await fetch("http://localhost:8080/auth", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
+            const backendPort: number =
+                parseInt(import.meta.env.VITE_BACKEND_PORT) || 8080;
+            const res: Response = await fetch(
+                `http://localhost:${backendPort}/auth`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(userInfo),
                 },
-                body: JSON.stringify(userInfo),
-            });
+            );
 
             if (!res.ok) {
                 throw new Error(
@@ -45,8 +50,10 @@ const SignupPage = () => {
 
     const signup = async (userInfo: UserInfo): Promise<boolean> => {
         try {
+            const backendPort: number =
+                parseInt(import.meta.env.VITE_BACKEND_PORT) || 8080;
             const res: Response = await fetch(
-                "http://localhost:8080/user/register",
+                `http://localhost:${backendPort}/user/register`,
                 {
                     method: "POST",
                     headers: {

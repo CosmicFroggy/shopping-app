@@ -18,8 +18,10 @@ const ListingsPage = () => {
                 }
 
                 // TODO: learn axios
+                const backendPort: number =
+                    parseInt(import.meta.env.VITE_BACKEND_PORT) || 8080;
                 const res: Response = await fetch(
-                    "http://localhost:8080/listing",
+                    `http://localhost:${backendPort}/listing`,
                     {
                         method: "GET",
                         headers,
@@ -51,9 +53,10 @@ const ListingsPage = () => {
             if (token) {
                 headers.Authorization = `Bearer ${token}`;
             }
-
+            const backendPort: number =
+                parseInt(import.meta.env.VITE_BACKEND_PORT) || 8080;
             const res: Response = await fetch(
-                `http://localhost:8080/listing/${id}`,
+                `http://localhost:${backendPort}/listing/${id}`,
                 {
                     method: "DELETE",
                     headers,

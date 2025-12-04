@@ -14,7 +14,7 @@ String startFrontend(int port, int backendPort) {
     String pid = powershell script: """
         cd ./frontend
         \$Env:VITE_BACKEND_PORT = "${backendPort}"
-        \$process = Start-Process -FilePath "npm.cmd" -ArgumentList "run dev -- --port ${port}" -PassThru
+        \$process = Start-Process -FilePath "node" -ArgumentList "node_modules/vite/bin/vite.js --port ${port}" -PassThru
         echo \$process.Id
     """, returnStdout:true
     return pid

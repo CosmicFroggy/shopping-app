@@ -11,6 +11,7 @@ pipeline {
         BACKEND_PORT = 8083
         FRONTEND_PORT = 5175
         FRONTEND_PID = null
+        BACKEND_PID = null
     }
 
     stages {
@@ -22,12 +23,20 @@ pipeline {
             }
         }
 
+        stage('Build') {
+            steps {
+                script {
+                    utils.buildBackend()
+                }
+            }
+        }
+
         stage('Startup') {
             steps {
                 script {
                     // start the backend and frontend as background processes
                     echo "Starting backend on port ${BACKEND_PORT}"
-                    utils.startBackend(BACKEND_PORT as int)
+                    BACKEND_PID = utils.startBackend(BACKEND_PORT as int)
 
                     echo 'Waiting for backend...'
                     timeout(time:1, unit: 'MINUTES') {
@@ -67,8 +76,7 @@ pipeline {
             steps {
                 script {
                     echo 'Shutting down backend'
-                    def backendPid = new File('./backend/application.pid').text
-                    utils.stopProcess(backendPid as int)
+                    utils.stopProcess(BACKEND_PID as int)
 
                     echo 'Shutting down frontend'
                     utils.stopProcess(FRONTEND_PID as int)

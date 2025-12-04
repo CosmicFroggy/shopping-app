@@ -1,9 +1,17 @@
-void startBackend(int port) {
-    powershell script: """
+void buildBackend() {
+    powershell '''
         cd ./backend
-        Start-Process -FilePath "mvn" -ArgumentList "spring-boot:run -Dspring-boot.run.arguments='--server.port=${port}'"
+        mvn clean package
+    '''
+}
 
-    """
+String startBackend(int port) {
+    String pid = powershell script: """
+        cd ./backend/target
+        \$process = Start-Process -FilePath "java" -ArgumentList "-Dserver.port=${port} -jar backend.jar" -PassThru
+        echo \$process.Id
+    """, returnStdout: true
+    return pid
 }
 
 void installFrontendDependencies() {

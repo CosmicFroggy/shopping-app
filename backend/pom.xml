@@ -10,7 +10,6 @@
 	</parent>
 	<groupId>com.shopping</groupId>
 	<artifactId>backend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>backend</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
@@ -90,6 +89,7 @@
 	</dependencies>
 
 <build>
+	<finalName>${project.name}</finalName>
 	<plugins>
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>

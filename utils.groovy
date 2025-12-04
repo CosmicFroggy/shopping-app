@@ -1,7 +1,6 @@
 String startBackend(int port) {
     String pid = powershell script: """
         cd ./backend
-        start "" mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=${port}"
         \$process = Start-Process -FilePath "mvn" -ArgumentList "spring-boot:run -Dspring-boot.run.arguments='--server.port=${port}'" -PassThru
         echo \$process.Id
     """, returnStdout: true

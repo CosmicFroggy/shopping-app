@@ -27,18 +27,13 @@ public class ListingController {
         this.listingService = listingService;
     }
 
-    // @GetMapping
-    // public ResponseEntity<List<Listing>> getAll() {
-    //     return ResponseEntity.ok(listingService.getAll());
-    // }
-
     @GetMapping
-    public ResponseEntity<Page<Listing>> getAll(
+    public Page<Listing> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size) {
     
         Pageable pageable = PageRequest.of(page, size);
-        return ResponseEntity.ok(listingService.getAll(pageable));
+        return listingService.getAll(pageable);
     }
 
     @GetMapping("/{id}")

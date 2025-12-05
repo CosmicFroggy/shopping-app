@@ -29,7 +29,9 @@ public class ListingController {
     }
 
     // use HATEOAS PagedModel to return next, previous, etc. links
-    @GetMapping          // Pageable will automatically retrieve query parameters for pagination and sorting      // assembler is method injected here
+    // Pageable will automatically retrieve query parameters for pagination and sorting
+    // assembler is method injected here
+    @GetMapping                
     public ResponseEntity<PagedModel<EntityModel<Listing>>> getAll(Pageable pageable, PagedResourcesAssembler<Listing> assembler) {
         Page<Listing> listings = listingService.getAll(pageable);
         return ResponseEntity.ok(assembler.toModel(listings));

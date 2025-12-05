@@ -34,8 +34,9 @@ const ListingsPage = () => {
                     );
                 }
 
-                const newListings: Listing[] = await res.json();
-                setListings(newListings);
+                // TODO: FIGURE OUT THE TYPE
+                const data = await res.json();
+                setListings(data._embedded.listingList);
             } catch (error) {
                 if (error instanceof Error) {
                     console.error(error.message);

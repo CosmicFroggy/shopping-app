@@ -1,9 +1,8 @@
 package com.shopping.backend.service;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.shopping.backend.entity.Listing;
 import com.shopping.backend.repository.ListingRepository;
 
@@ -16,8 +15,8 @@ public class ListingService {
         this.listingRepository = listingRepository;
     }
 
-    public List<Listing> getAll() {
-        return listingRepository.findAll();
+    public Page<Listing> getAll(Pageable pageable) {
+        return listingRepository.findAll(pageable);
     }
 
     public Listing getById(Long id) {

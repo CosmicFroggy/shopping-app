@@ -1,18 +1,21 @@
 
 package com.shopping.backend.controller;
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shopping.backend.entity.Listing;
 import com.shopping.backend.service.ListingService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.DeleteMapping;
 
 
 @RestController
@@ -25,9 +28,13 @@ public class ListingController {
         this.listingService = listingService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<Listing>> getAll() {
-        return ResponseEntity.ok(listingService.getAll());
+    // use HATEOAS PagedModel to return next, previous, etc. links
+    // Pageable will automatically retrieve query parameters for pagination and sorting
+    // assembler is method injected here
+    @GetMapping                
+    public ResponseEntity<PagedModel<EntityModel<Listing>>> getAll(Pageable pageable, PagedResourcesAssembler<Listing> assembler) {
+        Page<Listing> listings = listingService.getAll(pageable);
+        return ResponseEntity.ok(assembler.toModel(listings));
     }
 
     @GetMapping("/{id}")

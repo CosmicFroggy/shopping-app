@@ -1,32 +1,54 @@
 -- Insert sample listings (flowers)
 INSERT INTO LISTING (ID, NAME, DESCRIPTION, PRICE) VALUES 
-(1, 'Red Rose Bouquet', 'A classic bouquet of fresh red roses symbolizing love and passion', 39.99);
+(1, 'Red Rose Bouquet', 'A classic bouquet of fresh red roses symbolizing love and passion', 39.99),
+(2, 'Sunflower Stems', 'Bright and cheerful sunflowers ideal for summer arrangements', 24.99),
+(3, 'Orchid Plant', 'Elegant phalaenopsis orchid in a ceramic pot; long-lasting blooms', 59.99),
+(4, 'Tulip Assortment', 'Mixed-color tulip bundle sourced from premium Dutch growers', 29.99),
+(5, 'Lavender Bunch', 'Fragrant dried lavender perfect for decor or aromatherapy', 14.99),
+(6, 'Peony Bouquet', 'Lush seasonal peonies available in pink, coral, or white', 49.99),
+(7, 'Daisy Arrangement', 'Simple and cheerful white daisies arranged with greenery', 19.99),
+(8, 'Hydrangea Bundle', 'Large, vibrant hydrangea blooms in blue or white', 34.99),
+(9, 'Carnation Mix', 'Colorful assortment of long-lasting carnations', 17.99),
+(10, 'Orchid Rose Hybrid Box', 'A luxury boxed flower arrangement combining roses and mini orchids', 89.99),
+(11, 'Mixed Wildflower Bouquet', 'A vibrant mix of seasonal wildflowers for a rustic touch', 27.99),
+(12, 'White Lily Elegance', 'Pure white lilies arranged gracefully in a decorative vase', 44.99),
+(13, 'Rose & Baby’s Breath', 'Classic red roses accented with delicate baby’s breath', 42.99),
+(14, 'Sunset Carnation Mix', 'Carnations in warm sunset shades, perfect for gifting', 21.99),
+(15, 'Pink Peony Delight', 'Soft pink peonies hand-tied for a romantic presentation', 54.99),
+(16, 'Exotic Bird of Paradise', 'Striking Bird of Paradise in a stylish planter', 69.99),
+(17, 'Spring Tulip Vase', 'A bouquet of fresh tulips in spring colors', 31.99),
+(18, 'Purple Orchid Splendor', 'Elegant purple orchids in a ceramic pot', 64.99),
+(19, 'Autumn Chrysanthemum Mix', 'Chrysanthemums in autumn tones for seasonal decor', 29.99),
+(20, 'Rose & Lily Fusion', 'A combination of red roses and white lilies for special occasions', 59.99),
+(21, 'Yellow Sunflower Bouquet', 'Bright sunflowers to bring cheer to any room', 25.99),
+(22, 'Lavender & Rosemary Bundle', 'Fragrant lavender and rosemary stems for home aromatherapy', 19.99),
+(23, 'Peach Rose Collection', 'Peach-colored roses arranged in a charming bouquet', 48.99),
+(24, 'Mini Succulent Garden', 'A small assortment of easy-care succulents in decorative pots', 39.99),
+(25, 'Blue Hydrangea Vase', 'Stunning blue hydrangeas in a sleek glass vase', 36.99),
+(26, 'Mixed Daisy Basket', 'Cheerful daisies arranged in a woven basket', 22.99),
+(27, 'Orchid & Fern Combo', 'Mini orchids paired with lush ferns for a tropical feel', 52.99),
+(28, 'Red & White Carnation Duo', 'Classic carnation duo in a festive color scheme', 20.99),
+(29, 'Peony & Tulip Mix', 'A fresh spring mix of peonies and tulips', 46.99),
+(30, 'Fragrant Rose Bundle', 'A bundle of aromatic roses for gifting or decoration', 41.99),
+(31, 'Yellow Lily Arrangement', 'Bright yellow lilies arranged with greenery', 39.99),
+(32, 'Wildflower Meadow Box', 'A box of assorted wildflowers for a natural look', 28.99),
+(33, 'Orchid Trio', 'Three elegant orchids in coordinating pots', 74.99),
+(34, 'Pink Carnation Bunch', 'Soft pink carnations tied in a neat bouquet', 19.49),
+(35, 'Sunflower & Daisy Mix', 'Sunny mix of sunflowers and white daisies', 26.99),
+(36, 'Romantic Red Rose Vase', 'Red roses in a tall vase for an elegant display', 49.99),
+(37, 'Hydrangea & Rose Combo', 'Blue hydrangeas combined with pink roses', 59.99),
+(38, 'Mixed Seasonal Bouquet', 'A mix of the season’s freshest flowers', 32.99),
+(39, 'White Orchid Display', 'Elegant white orchids in a decorative container', 67.99),
+(40, 'Lavender Field Bundle', 'A large bundle of dried lavender for decoration and fragrance', 21.99),
+(41, 'Coral Peony Arrangement', 'Vibrant coral peonies for a cheerful bouquet', 53.99),
+(42, 'Tropical Hibiscus Set', 'Bright hibiscus flowers in a tropical-themed arrangement', 44.99),
+(43, 'Classic Rose Trio', 'Three long-stemmed roses in assorted colors', 29.99),
+(44, 'Daisy & Lavender Mix', 'Fresh daisies paired with fragrant lavender', 23.99),
+(45, 'Elegant Orchid Vase', 'Single orchid with decorative vase for a minimalist look', 59.99),
+(46, 'Pink & White Tulip Combo', 'Mixed pink and white tulips arranged in a bouquet', 33.99),
+(47, 'Sunflower & Rose Basket', 'A cheerful basket of sunflowers and roses', 38.99),
+(48, 'Lavender & Lilac Mix', 'Aromatic lavender combined with delicate lilacs', 27.99),
+(49, 'Autumn Rose Collection', 'Roses in rich autumn colors, perfect for seasonal gifting', 45.99),
+(50, 'Mini Peony Trio', 'Three small peonies in coordinating shades', 36.99);
 
-INSERT INTO LISTING (ID, NAME, DESCRIPTION, PRICE) VALUES 
-(2, 'Sunflower Stems', 'Bright and cheerful sunflowers ideal for summer arrangements', 24.99);
-
-INSERT INTO LISTING (ID, NAME, DESCRIPTION, PRICE) VALUES 
-(3, 'Orchid Plant', 'Elegant phalaenopsis orchid in a ceramic pot; long-lasting blooms', 59.99);
-
-INSERT INTO LISTING (ID, NAME, DESCRIPTION, PRICE) VALUES 
-(4, 'Tulip Assortment', 'Mixed-color tulip bundle sourced from premium Dutch growers', 29.99);
-
-INSERT INTO LISTING (ID, NAME, DESCRIPTION, PRICE) VALUES 
-(5, 'Lavender Bunch', 'Fragrant dried lavender perfect for decor or aromatherapy', 14.99);
-
-INSERT INTO LISTING (ID, NAME, DESCRIPTION, PRICE) VALUES 
-(6, 'Peony Bouquet', 'Lush seasonal peonies available in pink, coral, or white', 49.99);
-
-INSERT INTO LISTING (ID, NAME, DESCRIPTION, PRICE) VALUES 
-(7, 'Daisy Arrangement', 'Simple and cheerful white daisies arranged with greenery', 19.99);
-
-INSERT INTO LISTING (ID, NAME, DESCRIPTION, PRICE) VALUES 
-(8, 'Hydrangea Bundle', 'Large, vibrant hydrangea blooms in blue or white', 34.99);
-
-INSERT INTO LISTING (ID, NAME, DESCRIPTION, PRICE) VALUES 
-(9, 'Carnation Mix', 'Colorful assortment of long-lasting carnations', 17.99);
-
-INSERT INTO LISTING (ID, NAME, DESCRIPTION, PRICE) VALUES 
-(10, 'Orchid Rose Hybrid Box', 'A luxury boxed flower arrangement combining roses and mini orchids', 89.99);
-
-ALTER TABLE LISTING ALTER COLUMN ID RESTART WITH 11;
+ALTER TABLE LISTING ALTER COLUMN ID RESTART WITH 51;

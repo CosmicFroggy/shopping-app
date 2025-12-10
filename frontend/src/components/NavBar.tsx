@@ -10,7 +10,10 @@ const NavBar = () => {
     const { authInfo } = useAuth();
 
     return (
-        <div className="relative bg-amber-200 p-2.5 flex items-center justify-between">
+        <div
+            data-testid="navbarRoot"
+            className="relative bg-amber-200 p-2.5 flex items-center justify-between"
+        >
             <div className="flex items-center">
                 <img src={logo} alt="Logo" className="h-10 z-50" />
                 <h1 className="text-4xl font-semibold ml-2">Flower Shop</h1>

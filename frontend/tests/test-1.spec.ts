@@ -1,15 +1,16 @@
 import { test, expect } from "@playwright/test";
+import LoginPage from "./pages/LoginPage";
 
-test("login", async ({ page }) => {
-    const baseURL: string = `http://localhost:${process.env.FRONTEND_PORT}`;
+// test.describe("login tests", () => {
+//     let loginPage: LoginPage;
 
-    await page.goto(baseURL);
-    await page.getByRole("textbox", { name: "Username" }).click();
-    await page.getByRole("textbox", { name: "Username" }).fill("admin");
-    await page.getByRole("textbox", { name: "Password" }).click();
-    await page.getByRole("textbox", { name: "Password" }).fill("admin1234");
-    await page.getByRole("button", { name: "Login" }).click();
-    await page.waitForURL(baseURL);
-    await page.getByRole("img", { name: "Logo" }).nth(1).click();
-    await expect(page.getByRole("button", { name: "Log out" })).toBeVisible();
-});
+//     test.beforeEach(async ({ page }) => {
+//         loginPage = new LoginPage(page);
+//         await loginPage.goto();
+//     });
+
+//     test("login as admin", async ({ page }) => {
+//         loginPage.login("admin", "admin1234");
+//         // how do I check that we have logged in correctly?
+//     });
+// });

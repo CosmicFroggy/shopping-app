@@ -1,6 +1,6 @@
 import { useAuth } from "../auth/useAuth";
 
-const SideBar = () => {
+const AccountMenu = () => {
     const { authInfo, setAuthInfo } = useAuth();
 
     return (
@@ -33,4 +33,4 @@ const SideBar = () => {
     );
 };
 
-export default SideBar;
+export default AccountMenu;

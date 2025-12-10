@@ -2,7 +2,7 @@ import logo from "../assets/logo.png";
 import account from "../assets/account.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import SideBar from "./SideBar";
+import AccountMenu from "./AccountMenu";
 import { useAuth } from "../auth/useAuth";
 
 const NavBar = () => {
@@ -35,7 +35,7 @@ const NavBar = () => {
             )}
             {open && (
                 <div className="z-50 absolute top-full right-0">
-                    <SideBar />
+                    <AccountMenu />
                 </div>
             )}
         </div>

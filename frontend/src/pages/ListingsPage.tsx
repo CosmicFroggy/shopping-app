@@ -6,7 +6,7 @@ import NavBar from "../components/NavBar";
 
 const ListingsPage = () => {
     const [listings, setListings] = useState<Listing[]>([]);
-    const { token } = useAuth();
+    const { authInfo } = useAuth();
 
     const [sorting, setSorting] = useState<string>("");
     const [prevPage, setPrevPage] = useState<string | undefined>(undefined);
@@ -16,10 +16,10 @@ const ListingsPage = () => {
 
     const getListings = async (url: string): Promise<void> => {
         try {
-            // set authorisation header if the token exists
+            // set authorisation header if the authInfo exists
             const headers: Record<string, string> = {};
-            if (token) {
-                headers.Authorization = `Bearer ${token}`;
+            if (authInfo) {
+                headers.Authorization = `Bearer ${authInfo.token}`;
             }
 
             // TODO: learn axios
@@ -56,10 +56,10 @@ const ListingsPage = () => {
 
     const deleteListingById = async (id: number): Promise<void> => {
         try {
-            // set authorisation header if the token exists
+            // set authorisation header if the authInfo exists
             const headers: Record<string, string> = {};
-            if (token) {
-                headers.Authorization = `Bearer ${token}`;
+            if (authInfo) {
+                headers.Authorization = `Bearer ${authInfo.token}`;
             }
             const backendPort: number =
                 parseInt(import.meta.env.VITE_BACKEND_PORT) || 8080;

@@ -3,20 +3,21 @@ import { useAuth } from "../auth/useAuth";
 import { useNavigate, Link } from "react-router-dom";
 import type { UserInfo } from "../types/UserInfo.";
 import NavBar from "../components/NavBar";
+import { AuthInfo } from "../auth/types/AuthTypes";
 
 const LoginPage = () => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
-    const { token, setToken } = useAuth();
+    const { authInfo, setAuthInfo } = useAuth();
     const navigate = useNavigate();
 
-    // if token isn't null then return to home, they're already logged in
+    // if authInfo isn't null then return to home, they're already logged in
     useEffect(() => {
-        if (token) {
+        if (authInfo) {
             navigate("/");
         }
-    }, [token, navigate]);
+    }, [authInfo, navigate]);
 
     const login = async (userInfo: UserInfo): Promise<void> => {
         try {
@@ -37,8 +38,8 @@ const LoginPage = () => {
                 const data = await res.json(); // TODO: define a type for the response body?
                 setError(data.error);
             } else {
-                const data = await res.json(); // TODO: define a type for the response body?
-                setToken(data.token);
+                const data: AuthInfo = await res.json();
+                setAuthInfo(data);
             }
         } catch (error) {
             // TODO: do I still need this catch?

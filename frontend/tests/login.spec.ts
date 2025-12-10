@@ -25,5 +25,7 @@ test.describe("login tests", () => {
         await expect(listingsPage.navbar.accountMenu.roleTag).toHaveText(
             "ADMIN",
         );
+
+        //TODO: also check that admin permissions is correct, i.e that create and delete listings buttons are there, or is this a separate test?
     });
 });

@@ -14,17 +14,21 @@ const NavBar = () => {
             <div className="flex items-center">
                 <img src={logo} alt="Logo" className="h-10 z-50" />
                 <h1 className="text-4xl font-semibold ml-2">Flower Shop</h1>
-                <Link className="ml-4 font-bold" to="/">
+                <Link hidden={!authInfo} className="ml-4 font-bold" to="/">
                     Home
+                </Link>
+                <Link
+                    hidden={authInfo?.role !== "ADMIN"}
+                    className="ml-4 font-bold"
+                    to="/create"
+                >
+                    Create listing
                 </Link>
             </div>
             {authInfo && (
-                <img
-                    src={account}
-                    alt="Logo"
-                    className="h-10"
-                    onClick={() => setOpen(!open)}
-                />
+                <button onClick={() => setOpen(!open)}>
+                    <img src={account} alt="account" className="h-10" />
+                </button>
             )}
             {open && (
                 <div className="z-50 absolute top-full right-0">

@@ -1,5 +1,4 @@
 import { useAuth } from "../auth/useAuth";
-import { Link } from "react-router-dom";
 
 const SideBar = () => {
     const { authInfo, setAuthInfo } = useAuth();
@@ -17,9 +16,6 @@ const SideBar = () => {
             <ol>
                 <li>
                     <button onClick={() => setAuthInfo(null)}>Log out</button>
-                </li>
-                <li hidden={authInfo?.role !== "ADMIN"}>
-                    <Link to="/create">Create listing</Link>
                 </li>
             </ol>
         </div>

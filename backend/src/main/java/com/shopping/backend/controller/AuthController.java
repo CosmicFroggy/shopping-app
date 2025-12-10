@@ -26,8 +26,7 @@ public class AuthController {
 
     @PostMapping
     public ResponseEntity<AuthResponseDto> authenticate(@RequestBody AuthRequestDto authRequest) {
-        String token = authService.authenticate(authRequest);
-        AuthResponseDto response = new AuthResponseDto(token);
+        AuthResponseDto response = authService.authenticate(authRequest);  // will throw exception if authentication fails
         return ResponseEntity.ok(response);
     }
 

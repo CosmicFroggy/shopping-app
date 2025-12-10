@@ -6,9 +6,9 @@ interface Props {
 }
 
 const ProtectedRoute = ({ children }: Props) => {
-    const { token } = useAuth();
+    const { authInfo } = useAuth();
 
-    if (!token) {
+    if (!authInfo) {
         return <Navigate to="/login" replace />;
     }
 

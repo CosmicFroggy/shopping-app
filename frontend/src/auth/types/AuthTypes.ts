@@ -1,4 +1,10 @@
+export type AuthInfo = {
+    username: string;
+    role: string;
+    token: string;
+};
+
 export type AuthContextType = {
-    token: string | null;
-    setToken: (token: string | null) => void;
+    authInfo: AuthInfo | null;
+    setAuthInfo: (authInfo: AuthInfo | null) => void;
 };

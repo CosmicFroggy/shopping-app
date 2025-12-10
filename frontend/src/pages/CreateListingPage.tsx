@@ -5,15 +5,15 @@ import NavBar from "../components/NavBar";
 import { useNavigate } from "react-router-dom";
 
 const CreateListingPage = () => {
-    const { token } = useAuth();
+    const { authInfo } = useAuth();
     const navigate = useNavigate();
 
     const createListing = async (listingInfo: ListingInfo): Promise<void> => {
         try {
-            // set authorisation header if the token exists
+            // set authorisation header if the authInfo exists
             const headers: Record<string, string> = {};
-            if (token) {
-                headers.Authorization = `Bearer ${token}`;
+            if (authInfo) {
+                headers.Authorization = `Bearer ${authInfo.token}`;
             }
             headers["Content-Type"] = "application/json";
 

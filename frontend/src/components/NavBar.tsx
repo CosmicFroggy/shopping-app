@@ -3,9 +3,11 @@ import account from "../assets/account.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import SideBar from "./SideBar";
+import { useAuth } from "../auth/useAuth";
 
 const NavBar = () => {
     const [open, setOpen] = useState<boolean>(false);
+    const { authInfo } = useAuth();
 
     return (
         <div className="relative bg-amber-200 p-2.5 flex items-center justify-between">
@@ -16,12 +18,14 @@ const NavBar = () => {
                     Home
                 </Link>
             </div>
-            <img
-                src={account}
-                alt="Logo"
-                className="h-10"
-                onClick={() => setOpen(!open)}
-            />
+            {authInfo && (
+                <img
+                    src={account}
+                    alt="Logo"
+                    className="h-10"
+                    onClick={() => setOpen(!open)}
+                />
+            )}
             {open && (
                 <div className="z-50 absolute top-full right-0">
                     <SideBar />

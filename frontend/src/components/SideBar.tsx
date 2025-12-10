@@ -15,17 +15,11 @@ const SideBar = () => {
                 </h2>
             </div>
             <ol>
-                <li hidden={!authInfo}>
+                <li>
                     <button onClick={() => setAuthInfo(null)}>Log out</button>
                 </li>
                 <li hidden={authInfo?.role !== "ADMIN"}>
                     <Link to="/create">Create listing</Link>
-                </li>
-                <li hidden={!!authInfo}>
-                    <Link to="/login">Log in</Link>
-                </li>
-                <li hidden={!!authInfo}>
-                    <Link to="/signup">Sign up</Link>
                 </li>
             </ol>
         </div>

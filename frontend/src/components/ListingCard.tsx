@@ -10,7 +10,7 @@ const ListingCard = ({ listing, onDelete }: Props) => {
     const { authInfo } = useAuth();
 
     return (
-        <li className="listing-card relative">
+        <li data-testid="listingCard" className="listing-card relative">
             <h3 className="listing-card-title">{listing.name}</h3>
             <p>{listing.description}</p>
             <p className="italic">£{listing.price}</p>

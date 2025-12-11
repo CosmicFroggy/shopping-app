@@ -56,8 +56,6 @@ const LoginPage = () => {
             username,
             password,
         };
-        setUsername("");
-        setPassword("");
         login(userInfo);
     };
 

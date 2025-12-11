@@ -1,7 +1,9 @@
 import { type Locator, type Page } from "@playwright/test";
+import Navbar from "./components/navbar";
 
 class SignupPage {
     private readonly _page: Page;
+    readonly navbar: Navbar;
     readonly usernameTextBox: Locator;
     readonly passwordTextBox: Locator;
     readonly signupButton: Locator;
@@ -10,6 +12,7 @@ class SignupPage {
 
     constructor(page: Page) {
         this._page = page;
+        this.navbar = new Navbar(page);
         this.usernameTextBox = page.getByRole("textbox", { name: "Username" });
         this.passwordTextBox = page.getByRole("textbox", { name: "Password" });
         this.signupButton = page.getByRole("button", { name: "Sign Up" });

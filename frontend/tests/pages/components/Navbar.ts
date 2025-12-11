@@ -7,7 +7,7 @@ class Navbar {
     readonly accountButton: Locator;
     readonly accountMenu: AccountMenu;
     readonly homeLink: Locator;
-    readonly createListingsLink: Locator;
+    readonly createListingLink: Locator;
 
     constructor(page: Page) {
         this._page = page;
@@ -15,7 +15,7 @@ class Navbar {
         this.accountButton = page.getByRole("button", { name: "account" });
         this.accountMenu = new AccountMenu(page);
         this.homeLink = page.getByRole("link", { name: "Home" });
-        this.createListingsLink = page.getByRole("link", {
+        this.createListingLink = page.getByRole("link", {
             name: "Create listing",
         });
     }
@@ -28,8 +28,8 @@ class Navbar {
         await this.homeLink.click();
     }
 
-    async gotoCreateListings(): Promise<void> {
-        await this.createListingsLink.click();
+    async gotoCreateListing(): Promise<void> {
+        await this.createListingLink.click();
     }
 }
 

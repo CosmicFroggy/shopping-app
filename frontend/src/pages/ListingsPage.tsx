@@ -9,8 +9,13 @@ const ListingsPage = () => {
     const { authInfo } = useAuth();
 
     const [sorting, setSorting] = useState<string>("");
-    const [prevPage, setPrevPage] = useState<string | undefined>(undefined);
+    const [prevPage, setPrevPage] = useState<string | undefined>(undefined); // condense all the links into one object? they all change at the same time
     const [nextPage, setNextPage] = useState<string | undefined>(undefined);
+    const [firstPage, setFirstPage] = useState<string | undefined>(undefined);
+    const [lastPage, setLastPage] = useState<string | undefined>(undefined);
+    const [currentPage, setCurrentPage] = useState<string | undefined>(
+        undefined,
+    );
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1);
 
@@ -39,6 +44,9 @@ const ListingsPage = () => {
             setListings(data._embedded.listingList);
             setPrevPage(data._links.prev?.href);
             setNextPage(data._links.next?.href);
+            setFirstPage(data._links.first?.href);
+            setLastPage(data._links.last?.href);
+            setCurrentPage(data._links.self?.href);
             setPageNumber(parseInt(data.page.number) + 1);
             setTotalPages(parseInt(data.page.totalPages));
         } catch (error) {
@@ -95,6 +103,7 @@ const ListingsPage = () => {
             <form>
                 <label htmlFor="sorting">Sort by:</label>
                 <select
+                    data-testid="sortingSelector"
                     value={sorting}
                     onChange={(
                         event: React.ChangeEvent<HTMLSelectElement>,
@@ -109,26 +118,50 @@ const ListingsPage = () => {
                     <option value="sort=name,desc">Name: Z to A</option>
                 </select>
             </form>
-            {prevPage && (
-                <button
-                    onClick={() => {
+            <button
+                disabled={!firstPage || firstPage === currentPage}
+                onClick={() => {
+                    if (!!firstPage) {
+                        getListings(firstPage);
+                    }
+                }}
+                className="disabled:border-gray-400 disabled:text-gray-400 border-2 border-black p-1 ml-0.5 mr-0.5"
+            >
+                First
+            </button>
+            <button
+                disabled={!prevPage}
+                onClick={() => {
+                    if (!!prevPage) {
                         getListings(prevPage);
-                    }}
-                    className="border-2 border-black p-1 ml-0.5 mr-0.5"
-                >
-                    Previous
-                </button>
-            )}
-            {nextPage && (
-                <button
-                    onClick={() => {
+                    }
+                }}
+                className="disabled:border-gray-400 disabled:text-gray-400 border-2 border-black p-1 ml-0.5 mr-0.5"
+            >
+                Previous
+            </button>
+            <button
+                disabled={!nextPage}
+                onClick={() => {
+                    if (nextPage) {
                         getListings(nextPage);
-                    }}
-                    className="border-2 border-black p-1 ml-0.5 mr-0.5"
-                >
-                    Next
-                </button>
-            )}
+                    }
+                }}
+                className="disabled:border-gray-400 disabled:text-gray-400 border-2 border-black p-1 ml-0.5 mr-0.5"
+            >
+                Next
+            </button>
+            <button
+                disabled={!lastPage || lastPage === currentPage}
+                onClick={() => {
+                    if (!!lastPage) {
+                        getListings(lastPage);
+                    }
+                }}
+                className="disabled:border-gray-400 disabled:text-gray-400 border-2 border-black p-1 ml-0.5 mr-0.5"
+            >
+                Last
+            </button>
             <p>
                 Page {pageNumber} of {totalPages}.
             </p>

@@ -66,7 +66,14 @@ const LoginPage = () => {
                     <h1 className="text-2xl font-semibold">Log In!</h1>
                     <form className="flex flex-col" onSubmit={handleSubmit}>
                         {/* conditionally show login error */}
-                        {error && <p className="text-red-600">{error}</p>}
+                        {error && (
+                            <p
+                                data-testid="loginError"
+                                className="text-red-600"
+                            >
+                                {error}
+                            </p>
+                        )}
                         <input
                             className="border-b-2 focus:outline-none"
                             type="text"

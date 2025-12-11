@@ -5,6 +5,7 @@ class SignupPage {
     readonly usernameTextBox: Locator;
     readonly passwordTextBox: Locator;
     readonly signupButton: Locator;
+    readonly signupError: Locator;
     readonly loginLink: Locator;
 
     constructor(page: Page) {
@@ -12,6 +13,7 @@ class SignupPage {
         this.usernameTextBox = page.getByRole("textbox", { name: "Username" });
         this.passwordTextBox = page.getByRole("textbox", { name: "Password" });
         this.signupButton = page.getByRole("button", { name: "Sign Up" });
+        this.signupError = page.getByTestId("signupError");
         this.loginLink = page.getByRole("link", { name: "Log in!" });
     }
 

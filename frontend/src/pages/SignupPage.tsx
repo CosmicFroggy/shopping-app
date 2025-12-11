@@ -109,6 +109,7 @@ const SignupPage = () => {
                         {/* conditionally show signup error */}
                         {error && (
                             <p
+                                data-testid="signupError"
                                 className="text-red-600"
                                 style={{ color: "red" }}
                             >

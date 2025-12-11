@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 import LoginPage from "./pages/LoginPage";
 import ListingsPage from "./pages/ListingsPage";
 
+// TODO: add this to config somewhere
 const baseURL: string = `http://localhost:${process.env.FRONTEND_PORT || 5173}`;
 
 test.describe("login tests", () => {

@@ -57,7 +57,25 @@ test.describe("login tests", () => {
         //TODO: also check that basic user permissions are correct, i.e that create and delete listings buttons are not there, or is this a separate test?
     });
 
-    test("login with invalid credentials", async ({ page }) => {
+    test("login with invalid username", async ({ page }) => {
+        // attempt to login with invalid credentials
+        await loginPage.login("invaliduser", "user1234");
+
+        // check that correct error message shows
+        await expect(loginPage.loginError).toBeVisible();
+        await expect(loginPage.loginError).toHaveText("Invalid credentials.");
+    });
+
+    test("login with invalid password", async ({ page }) => {
+        // attempt to login with invalid credentials
+        await loginPage.login("user", "invalidpassword");
+
+        // check that correct error message shows
+        await expect(loginPage.loginError).toBeVisible();
+        await expect(loginPage.loginError).toHaveText("Invalid credentials.");
+    });
+
+    test("login with invalid username and password", async ({ page }) => {
         // attempt to login with invalid credentials
         await loginPage.login("invaliduser", "invalidpassword");
 

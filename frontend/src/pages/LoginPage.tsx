@@ -52,9 +52,12 @@ const LoginPage = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         setError(null);
+        const userInfo: UserInfo = {
+            username,
+            password,
+        };
         setUsername("");
         setPassword("");
-        const userInfo: UserInfo = { username, password };
         login(userInfo);
     };
 
@@ -82,7 +85,7 @@ const LoginPage = () => {
                             value={username}
                             onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>,
-                            ): void => setUsername(e.target.value)}
+                            ): void => setUsername(e.target.value.trim())}
                         />
                         <input
                             className="border-b-2 focus:outline-none"
@@ -92,7 +95,7 @@ const LoginPage = () => {
                             value={password}
                             onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>,
-                            ): void => setPassword(e.target.value)}
+                            ): void => setPassword(e.target.value.trim())}
                         />
                         <button type="submit">Login</button>
                     </form>

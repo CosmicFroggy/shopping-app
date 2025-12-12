@@ -83,9 +83,16 @@ const SignupPage = () => {
     ): Promise<void> => {
         event.preventDefault();
         setError(null);
-        setUsername("");
-        setPassword("");
-        const userInfo: UserInfo = { username, password };
+        // check that both fields were filled out
+        // TODO: here I should also check that password meets requirements
+        if (username === "" || password === "") {
+            setError("Please enter username and password.");
+            return;
+        }
+        const userInfo: UserInfo = {
+            username,
+            password,
+        };
         const success: boolean = await signup(userInfo);
         if (success) {
             login(userInfo);
@@ -102,6 +109,7 @@ const SignupPage = () => {
                         {/* conditionally show signup error */}
                         {error && (
                             <p
+                                data-testid="signupError"
                                 className="text-red-600"
                                 style={{ color: "red" }}
                             >
@@ -116,7 +124,7 @@ const SignupPage = () => {
                             value={username}
                             onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>,
-                            ): void => setUsername(e.target.value)}
+                            ): void => setUsername(e.target.value.trim())}
                         />
                         <input
                             className="border-b-2 focus:outline-none"
@@ -126,7 +134,7 @@ const SignupPage = () => {
                             value={password}
                             onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>,
-                            ): void => setPassword(e.target.value)}
+                            ): void => setPassword(e.target.value.trim())}
                         />
                         <button type="submit">Sign Up</button>
                     </form>

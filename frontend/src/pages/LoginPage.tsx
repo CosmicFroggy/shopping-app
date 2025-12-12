@@ -52,9 +52,10 @@ const LoginPage = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         setError(null);
-        setUsername("");
-        setPassword("");
-        const userInfo: UserInfo = { username, password };
+        const userInfo: UserInfo = {
+            username,
+            password,
+        };
         login(userInfo);
     };
 
@@ -66,7 +67,14 @@ const LoginPage = () => {
                     <h1 className="text-2xl font-semibold">Log In!</h1>
                     <form className="flex flex-col" onSubmit={handleSubmit}>
                         {/* conditionally show login error */}
-                        {error && <p className="text-red-600">{error}</p>}
+                        {error && (
+                            <p
+                                data-testid="loginError"
+                                className="text-red-600"
+                            >
+                                {error}
+                            </p>
+                        )}
                         <input
                             className="border-b-2 focus:outline-none"
                             type="text"
@@ -75,7 +83,7 @@ const LoginPage = () => {
                             value={username}
                             onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>,
-                            ): void => setUsername(e.target.value)}
+                            ): void => setUsername(e.target.value.trim())}
                         />
                         <input
                             className="border-b-2 focus:outline-none"
@@ -85,7 +93,7 @@ const LoginPage = () => {
                             value={password}
                             onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>,
-                            ): void => setPassword(e.target.value)}
+                            ): void => setPassword(e.target.value.trim())}
                         />
                         <button type="submit">Login</button>
                     </form>

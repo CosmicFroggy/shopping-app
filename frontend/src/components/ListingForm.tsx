@@ -44,8 +44,12 @@ const ListingForm = ({ createListing }: Props) => {
                 }
             />
             <input
+                data-testid="priceInput"
                 type="number"
                 name="price"
+                inputMode="decimal"
+                step="0.01"
+                min="0"
                 placeholder="Price"
                 value={price}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>

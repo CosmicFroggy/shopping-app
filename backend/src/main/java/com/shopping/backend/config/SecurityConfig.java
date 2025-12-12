@@ -74,7 +74,7 @@ public class SecurityConfig {
 
     }
     
-    // temporary startup initialisation to create an admin user
+    // temporary startup initialisation to create an admin and normal user
     @Bean
     public CommandLineRunner createAdminUser(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
@@ -83,9 +83,15 @@ public class SecurityConfig {
                 admin.setUsername("admin");
                 admin.setPassword(passwordEncoder.encode("admin1234"));
                 admin.setRole(Role.ADMIN);
-
                 userRepository.save(admin);
                 System.out.println("Default admin user created!");
+
+                User user = new User();
+                user.setUsername("user");
+                user.setPassword(passwordEncoder.encode("user1234"));
+                user.setRole(Role.USER);
+                userRepository.save(user);
+                System.out.println("Default basic user created!");
             }
         };
     }

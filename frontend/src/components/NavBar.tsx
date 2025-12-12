@@ -2,7 +2,7 @@ import logo from "../assets/logo.png";
 import account from "../assets/account.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import SideBar from "./SideBar";
+import AccountMenu from "./AccountMenu";
 import { useAuth } from "../auth/useAuth";
 
 const NavBar = () => {
@@ -10,7 +10,10 @@ const NavBar = () => {
     const { authInfo } = useAuth();
 
     return (
-        <div className="relative bg-amber-200 p-2.5 flex items-center justify-between">
+        <div
+            data-testid="navbarRoot"
+            className="relative bg-amber-200 p-2.5 flex items-center justify-between"
+        >
             <div className="flex items-center">
                 <img src={logo} alt="Logo" className="h-10 z-50" />
                 <h1 className="text-4xl font-semibold ml-2">Flower Shop</h1>
@@ -32,7 +35,7 @@ const NavBar = () => {
             )}
             {open && (
                 <div className="z-50 absolute top-full right-0">
-                    <SideBar />
+                    <AccountMenu />
                 </div>
             )}
         </div>

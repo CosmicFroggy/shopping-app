@@ -1,5 +1,5 @@
 import type { Listing } from "../types/Listing";
-import { useAuth } from "../auth/useAuth";
+import { useAuth } from "../features/Auth/useAuth";
 
 interface Props {
     listing: Listing;

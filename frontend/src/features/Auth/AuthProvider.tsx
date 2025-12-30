@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { ReactNode } from "react";
 
 import { AuthContext } from "./AuthContext";
-import { AuthInfo } from "./types/AuthTypes";
+import { AuthInfo } from "./Auth.types";
 
 type props = {
     children: ReactNode;

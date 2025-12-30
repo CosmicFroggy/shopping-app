@@ -3,7 +3,7 @@ import account from "../assets/account.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import AccountMenu from "./AccountMenu";
-import { useAuth } from "../auth/useAuth";
+import { useAuth } from "../features/Auth/useAuth";
 
 const NavBar = () => {
     const [open, setOpen] = useState<boolean>(false);

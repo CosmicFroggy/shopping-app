@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../auth/useAuth";
 import { useNavigate, Link } from "react-router-dom";
-import type { UserInfo } from "../types/UserInfo.";
+import type { UserInfo } from "../types/UserInfo";
 import NavBar from "../components/NavBar";
 import { AuthInfo } from "../auth/types/AuthTypes";
 

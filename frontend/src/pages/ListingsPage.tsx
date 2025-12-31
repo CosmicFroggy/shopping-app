@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { Listing } from "../types/Listing";
 import { useAuth } from "../features/Auth/useAuth";
 import ListingList from "../components/ListingList";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/NavBar/NavBar";
 
 const ListingsPage = () => {
     const [listings, setListings] = useState<Listing[]>([]);

@@ -1,4 +1,4 @@
-import { useAuth } from "../features/Auth/useAuth";
+import { useAuth } from "../../../features/Auth/useAuth";
 
 const AccountMenu = () => {
     const { authInfo, setAuthInfo } = useAuth();

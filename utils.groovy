@@ -35,7 +35,7 @@ boolean serverHealthy(String url) {
 
 void testFrontend(int frontendPort) {
     bat """
-        cd ./frontend
+        cd ./frontend_tests
         set FRONTEND_PORT=${frontendPort}
         npm run test"
     """

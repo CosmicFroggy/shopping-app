@@ -1,9 +1,6 @@
 {
     "files": [],
-    "references": [
-        { "path": "./tsconfig.app.json" },
-        { "path": "./tsconfig.playwright.json" }
-    ],
+    "references": [{ "path": "./tsconfig.app.json" }],
     "compilerOptions": {
         "target": "esnext",
         "module": "esnext",

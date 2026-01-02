@@ -1,12 +1,9 @@
-import logo from "../assets/logo.png";
-import account from "../assets/account.png";
-import { useState } from "react";
+import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
-import AccountMenu from "./AccountMenu";
-import { useAuth } from "../auth/useAuth";
+import AccountMenuController from "./AccountMenu/AccountMenuController";
+import { useAuth } from "../../features/Auth/useAuth";
 
 const NavBar = () => {
-    const [open, setOpen] = useState<boolean>(false);
     const { authInfo } = useAuth();
 
     return (
@@ -28,16 +25,7 @@ const NavBar = () => {
                     Create listing
                 </Link>
             </div>
-            {authInfo && (
-                <button onClick={() => setOpen(!open)}>
-                    <img src={account} alt="account" className="h-10" />
-                </button>
-            )}
-            {open && (
-                <div className="z-50 absolute top-full right-0">
-                    <AccountMenu />
-                </div>
-            )}
+            {authInfo && <AccountMenuController />}
         </div>
     );
 };

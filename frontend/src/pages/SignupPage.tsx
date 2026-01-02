@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../auth/useAuth";
+import { useAuth } from "../features/Auth/useAuth";
 import { useNavigate, Link } from "react-router-dom";
-import type { UserInfo } from "../types/UserInfo.";
-import NavBar from "../components/NavBar";
-import { AuthInfo } from "../auth/types/AuthTypes";
+import type { UserInfo } from "../types/UserInfo";
+import NavBar from "../components/NavBar/NavBar";
+import { AuthInfo } from "../features/Auth/Auth.types";
 
 const SignupPage = () => {
     const [username, setUsername] = useState<string>("");

@@ -1,7 +1,7 @@
 import ListingForm from "../components/ListingForm";
 import type { ListingInfo } from "../types/ListingInfo";
-import { useAuth } from "../auth/useAuth";
-import NavBar from "../components/NavBar";
+import { useAuth } from "../features/Auth/useAuth";
+import NavBar from "../components/NavBar/NavBar";
 import { useNavigate } from "react-router-dom";
 
 const CreateListingPage = () => {
